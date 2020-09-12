@@ -38,7 +38,9 @@ def init_db(conn, force: bool = False):
             id               INTEGER PRIMARY KEY,
             user_id          INTEGER NOT NULL,
             user_name        TEXT NOT NULL,
-            subscribe        NUMERIC
+            subscribe        INTEGER NOT NULL DEFAULT 0,
+            latitude         REAL NOT NULL DEFAULT 50.479211,
+            longitude        REAL NOT NULL DEFAULT 30.434911
         )
     ''')
 
@@ -55,50 +57,33 @@ def add_user_in_db(conn, user_id: int, user_name: str):
 def check_in_db(conn, column, data_check):
     c = conn.cursor()
     c.execute(f'SELECT {column} FROM bot_users WHERE {column}=?', [data_check])
-    if c.fetchone():
+    return c.fetchone()
+    # if c.fetchone():
+    #     return True
+    # else:
+    #     return False
+
+@ensure_connection
+def subscribe_db(conn, user_id: int):
+    c = conn.cursor()
+    c.execute(f'UPDATE bot_users SET subscribe=1 WHERE user_id = {user_id}')
+    conn.commit()
+
+@ensure_connection
+def check_subscribe_db(conn, user_id: int):
+    c = conn.cursor()
+    c.execute(f'SELECT subscribe FROM bot_users WHERE user_id=?', [user_id])
+    if c.fetchone()[0]:
         return True
     else:
         return False
 
 @ensure_connection
-def subscribe_db(conn, user_id: int):
-    c = conn.cursor()
-    c.execute('UPDATE bot_users SET subscribe = 1 WHERE user_id = user_id')
-    conn.commit()
-
-@ensure_connection
 def unsubscribe_db(conn, user_id: int):
     c = conn.cursor()
-    c.execute('UPDATE bot_users SET subscribe = 0 WHERE user_id = user_id')
+    c.execute(f'UPDATE bot_users SET subscribe=0 WHERE user_id = {user_id}')
     conn.commit()
 
-
-# # Create cursor object
-# cur = users_bot.db.cursor()
-#
-# # run a select query against the table to see if any record exists
-# # that has the email or username
-# cur.execute("""SELECT email
-#                       ,username
-#                FROM users
-#                WHERE email=?
-#                    OR username=?""",
-#             (email, username))
-#
-# # Fetch one result from the query because it
-# # doesn't matter how many records are returned.
-# # If it returns just one result, then you know
-# # that a record already exists in the table.
-# # If no results are pulled from the query, then
-# # fetchone will return None.
-# result = cur.fetchone()
-#
-# if result:
-#     # Record already exists
-#     # Do something that tells the user that email/user handle already exists
-# else:
-#     cur.execute("INSERT INTO users VALUES (?, ?, ?)", (email, username, password))
-#     g.db.commit()
 
 if __name__ == '__main__':
     init_db(force=True)
