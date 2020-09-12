@@ -37,10 +37,11 @@ def init_db(conn, force: bool = False):
         CREATE TABLE IF NOT EXISTS bot_users (
             id               INTEGER PRIMARY KEY,
             user_id          INTEGER NOT NULL,
-            user_name        TEXT NOT NULL,
+            user_name        TEXT,
             subscribe        INTEGER NOT NULL DEFAULT 0,
             latitude         REAL NOT NULL DEFAULT 50.479211,
-            longitude        REAL NOT NULL DEFAULT 30.434911
+            longitude        REAL NOT NULL DEFAULT 30.434911,
+            time_notify      TEXT
         )
     ''')
 
@@ -82,6 +83,12 @@ def check_subscribe_db(conn, user_id: int):
 def unsubscribe_db(conn, user_id: int):
     c = conn.cursor()
     c.execute(f'UPDATE bot_users SET subscribe=0 WHERE user_id = {user_id}')
+    conn.commit()
+
+@ensure_connection
+def set_time_notify(conn, user_id: int, time: str):
+    c = conn.cursor()
+    c.execute(f'UPDATE bot_users SET time_notify=? WHERE user_id = {user_id}', [time])
     conn.commit()
 
 

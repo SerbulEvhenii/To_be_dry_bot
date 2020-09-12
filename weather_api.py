@@ -21,11 +21,9 @@ def get_weather():
 
 def show_current_weather():
     temp = round((get_weather())['current']['temp'], 0)
-    a = ((get_weather())['current']['weather'][0]['main'])
-    b = ((get_weather())['current']['weather'][0]['description'])
-    return f'Сейчас в Киеве температура воздуха: {temp}.\n' \
-           f'Тест current.weather.main - {a}.\n' \
-           f'Тест current.weather.description - {b}.'
+    # a = ((get_weather())['current']['weather'][0]['main'])
+    # b = ((get_weather())['current']['weather'][0]['description'])
+    return f'Сейчас в Киеве температура воздуха: {temp}.'
 
 
 def show_tomorrow_weather():
