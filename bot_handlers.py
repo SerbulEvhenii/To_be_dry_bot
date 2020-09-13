@@ -4,6 +4,7 @@ from db import *          # Импортируем все методы из фа
 import weather_api        # Импортируем все методы из файла для погоды
 import telebot.types      # Импортируем типы телеграма API
 import markups            # Импортируем кнопки для бота
+import emoji              # Импортируем смайлы http://www.unicode.org/emoji/charts/full-emoji-list.html
 
 
 @bot.message_handler(commands=['start'])
@@ -49,31 +50,34 @@ def set_time_notify_in_db(message):
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
     text = message.text.lower()
-    if text == 'погода на завтра':
+    if 'погода на завтра' in text:
         bot.send_chat_action(chat_id=message.chat.id, action='typing')  # анимация "Печатает..."
         bot.send_message(message.chat.id, weather_api.show_tomorrow_weather())
-    elif text == 'погода сейчас':
+    elif 'погода сейчас' in text:
         bot.send_chat_action(chat_id=message.chat.id, action='typing')
         bot.send_message(message.chat.id, weather_api.show_current_weather())
-    elif text == 'как дела?':
+    elif 'погода сегодня' in text:
+        bot.send_chat_action(chat_id=message.chat.id, action='typing')
+        bot.send_message(message.chat.id, weather_api.show_current_daily_weather())
+    elif 'как дела?' in text:
         bot.send_message(message.chat.id, 'Отлично. А твои как?')
-    elif text == 'помощь':
+    elif 'помощь' in text:
         bot.send_message(message.chat.id, 'Пока в разработке...')
-    elif text == 'настройка бота':
+    elif 'настройка бота' in text:
         bot.send_message(message.chat.id, 'Пока в разработке...')
-    elif text == 'подписаться на уведомления':
+    elif 'подписаться' in text:
         # проверить если пользователь в базе данных, если нет, то добавить
         if check_in_db(column='user_id', data_check=message.chat.id):
             subscribe(message)
         else:
             add_user_in_db(user_name=message.chat.username, user_id=message.chat.id)
             subscribe(message)
-    elif text == 'отписаться':
+    elif 'отписаться' in text:
         if check_in_db(column='user_id', data_check=message.chat.id):
             unsubscribe(message)
         else:
             bot.send_message(message.chat.id, 'Вы еще не подписывались на уведомления!')
-    elif text == 'ошибка' or text == '/help' or text == 'возникла ошибка':
+    elif 'ошибка' in text or '/help' in text == '/help' or 'возникла ошибка' in text:
         keyboard = telebot.types.InlineKeyboardMarkup()
         keyboard.add(telebot.types.InlineKeyboardButton('Написать разаботчику', url='telegram.me/serbul_evhenii'))
         bot.send_message(message.chat.id,

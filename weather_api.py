@@ -1,5 +1,6 @@
 import requests
 import json
+import emoji
 
 API_KEY = 'a4d2b023b22c75b54f2b88fb96430925'
 USER_LATITUDE = 50.479211
@@ -21,15 +22,32 @@ def get_weather():
 
 def show_current_weather():
     temp = round((get_weather())['current']['temp'], 0)
-    # a = ((get_weather())['current']['weather'][0]['main'])
-    # b = ((get_weather())['current']['weather'][0]['description'])
     return f'Сейчас в Киеве температура воздуха: {temp}.'
 
 
+def show_current_daily_weather():
+    temp_min = round((get_weather())['daily'][0]['temp']['min'], 0)       # [0] - сегодня, 1 - завтра
+    temp_max = round((get_weather())['daily'][0]['temp']['max'], 0)       # [0] - сегодня, 1 - завтра
+    pop = int((get_weather())['daily'][0]['pop']) * 100                   # Вероятность осадков % (Precipitation)
+    return emoji.emojize(f'Погода на сегодня в Киеве:\n' \
+           f'• :sun_behind_cloud: температура воздуха:\n' \
+           f'мин. +{temp_min} макс. +{temp_max}\n' \
+           f'• :cloud_with_rain: вероятность осадков: {pop}%')
+
+
 def show_tomorrow_weather():
-    temp_min = round((get_weather())['daily'][1]['temp']['min'], 0)
-    temp_max = round((get_weather())['daily'][1]['temp']['max'], 0)
-    return f'Завтра в Киеве температура воздуха: мин.+{temp_min}, макс.+{temp_max}.'
+    temp_min = round((get_weather())['daily'][1]['temp']['min'], 0)       # [1] - сегодня, 2 - завтра
+    temp_max = round((get_weather())['daily'][1]['temp']['max'], 0)       # [1] - сегодня, 2 - завтра
+    pop = int((get_weather())['daily'][1]['pop']) * 100                   # Вероятность осадков % (Precipitation)
+    return emoji.emojize(f'Погода на завтра в Киеве:\n' \
+           f'• :sun_behind_cloud: температура воздуха:\n' \
+           f'мин. +{temp_min} макс. +{temp_max}\n' \
+           f'• :cloud_with_rain: вероятность осадков: {pop}%')
+
+# def show_tomorrow_weather():
+#     temp_min = round((get_weather())['daily'][1]['temp']['min'], 0)
+#     temp_max = round((get_weather())['daily'][1]['temp']['max'], 0)
+#     return f'Завтра в Киеве температура воздуха: мин.+{temp_min}, макс.+{temp_max}.'
 
 
 def write_json(data, filename='weather.json'):
