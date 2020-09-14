@@ -85,6 +85,13 @@ def set_time_notify(conn, user_id: int, time: str):
     c.execute(f'UPDATE bot_users SET time_notify=? WHERE user_id = {user_id}', [time])
     conn.commit()
 
+@ensure_connection
+def list_id_users_in_db(conn):
+    c = conn.cursor()
+    c.execute(f'SELECT * FROM bot_users')
+    return c.fetchall()
+
+
 
 if __name__ == '__main__':
     init_db(force=True)
