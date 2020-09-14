@@ -3,12 +3,8 @@
 
 ![Image Logo](https://github.com/SerbulEvhenii/To_be_dry_bot/blob/master/tobedry_logo.jpg)
 
-## 1.Использованные решения:
+## Использованные решения:
 - База данных - SQLite
 - API [OpenWeatherMap](https://openweathermap.org/api)
 - API Telegram - [pyTelegramBotAPI](https://github.com/eternnoir/pyTelegramBotAPI)
 - [Emoji](https://github.com/carpedm20/emoji/)
-
-## 2.Продвижение к понимаю Machine Learning
-- Онлайн курсы (на английском языке):
-  - курс по TensorFlow - [перейти](https://www.coursera.org/learn/introduction-tensorflow)
