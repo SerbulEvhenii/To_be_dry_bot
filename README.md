@@ -3,7 +3,7 @@
 
 ![Image Logo](https://github.com/SerbulEvhenii/To_be_dry_bot/blob/master/tobedry_logo.jpg)
 
-**[Ссылка на бота](https://t.me/to_be_dry?start)**
+**[Ссылка на бота](https://t.me/toBeDryBot?start)**
 ## Использованные решения:
 - База данных - [SQLite](https://www.sqlite.org/index.html)
 - API [OpenWeatherMap](https://openweathermap.org/api)
