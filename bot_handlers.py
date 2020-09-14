@@ -78,7 +78,7 @@ def set_time_notify_menu(callback_query: telebot.types.CallbackQuery):
 def set_time_notify_menu(callback_query: telebot.types.CallbackQuery):
     if callback_query.data == 'btn05:00':
         bot.answer_callback_query(callback_query.id)
-        set_time_notify(user_id=callback_query.from_user.id, time=callback_query.data[0])
+        set_time_notify(user_id=callback_query.from_user.id, time=callback_query.data[3:])
         bot.send_message(callback_query.from_user.id, 'Время уведомления установлено на 05:00')
     elif callback_query.data == 'btn06:00':
         bot.answer_callback_query(callback_query.id)
