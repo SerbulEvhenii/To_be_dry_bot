@@ -1,6 +1,7 @@
 import requests
 import json
 import emoji
+import datetime
 
 API_KEY = 'a4d2b023b22c75b54f2b88fb96430925'
 USER_LATITUDE = 50.479211
@@ -8,10 +9,38 @@ USER_LONGITUDE = 30.434911
 URL_WEATHER = f'https://api.openweathermap.org/data/2.5/onecall?lat={USER_LATITUDE}&lon={USER_LONGITUDE}' \
               f'&exclude=minutely,hourly,&appid={API_KEY}&lang=ru&units=metric'
 
-def save_weather_json():
-    r = requests.get(URL_WEATHER)
-    r_json = r.json()
-    write_json(r_json)
+# получить данные из json
+#   -if если файла нет:
+#           создаем файл json
+#   -if проверяем если сохранен меньше чем 10 мин:
+#           открываем json и считываем информацию
+#   -if проверяем если сохранен больше чем 10 мин:
+#           создаем файл json
+#           открываем json и считываем информацию
+
+def get_weather():
+    date_now = datetime.datetime.now()
+    if pass:
+        date_save = datetime.datetime.now()
+        save_json()
+        date_end = date_save + datetime.timedelta(minutes=10)
+    else:
+        if date_save < date_end:
+            read_json()
+        if date_save > date_end:
+            date_save = datetime.datetime.now()
+            save_json()
+            date_end = date_save + datetime.timedelta(minutes=10)
+            read_json()
+
+
+
+
+
+# def save_weather_json():
+#     r = requests.get(URL_WEATHER)
+#     r_json = r.json()
+#     write_json(r_json)
 
 
 def get_weather():
@@ -49,10 +78,20 @@ def show_tomorrow_weather():
 #     temp_max = round((get_weather())['daily'][1]['temp']['max'], 0)
 #     return f'Завтра в Киеве температура воздуха: мин.+{temp_min}, макс.+{temp_max}.'
 
-
-def write_json(data, filename='weather.json'):
+def save_json(filename='weather.json'):
+    r = requests.get(URL_WEATHER)
+    r_json = r.json()
     with open(filename, 'w') as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
+        json.dump(r_json, f, indent=2, ensure_ascii=False)
+
+def read_json():
+    with open('weather.json', 'r') as f:
+        return json.load(f)
+
+
+# def write_json(data, filename='weather.json'):
+#     with open(filename, 'w') as f:
+#         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
 if __name__ == '__main__':

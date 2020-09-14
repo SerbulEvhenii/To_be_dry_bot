@@ -19,17 +19,11 @@ def ensure_connection(func):
 def init_db(conn, force: bool = False):
     """ Проверить что нужные таблицы существуют, иначе создать их
 
-        Важно: миграции на такие таблицы вы должны производить самостоятельно!
-
         :param conn: подключение к СУБД
         :param force: явно пересоздать все таблицы
     """
     c = conn.cursor()
 
-    # Информация о пользователе
-    # TODO: создать при необходимости...
-
-    # Сообщения от пользователей
     if force:
         c.execute('DROP TABLE IF EXISTS bot_users')
 
