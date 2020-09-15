@@ -91,6 +91,13 @@ def list_id_users_in_db(conn):
     c.execute(f'SELECT * FROM bot_users')
     return c.fetchall()
 
+@ensure_connection
+def get_time_notify_user_db(conn, user_id: int):
+    c = conn.cursor()
+    c.execute(f'SELECT time_notify FROM bot_users WHERE user_id=?', [user_id])
+    return c.fetchone()[0]
+
+
 
 
 if __name__ == '__main__':

@@ -1,5 +1,4 @@
 import threading
-
 from bot import bot  # Импортируем объект бота
 from messages import *  # Инмпортируем все с файла сообщений
 from db import *  # Импортируем все методы из файла для базы данных
@@ -51,10 +50,12 @@ def unsubscribe(message):
 
 def notify_weather():
     list_tuples_id_users = list_id_users_in_db()
+    list_id_users = []
     for tuple_in_list in list_tuples_id_users:
-        user_id = tuple_in_list[1]
-        user_time_notify = tuple_in_list[-1]
-        bot.send_message(chat_id=user_id, text=weather_api.show_current_daily_weather())
+        list_id_users.append(tuple_in_list[1])
+    for user_id_in_list in list_id_users:
+        if get_time_notify_user_db(user_id=user_id_in_list) == '11:00':
+            bot.send_message(chat_id=user_id_in_list, text=weather_api.show_current_daily_weather())
 
 
 # Выполняется, когда пользователь вызывает /time
@@ -157,7 +158,25 @@ def runBot():  # инициализация БД и запуск бота
 
 
 def runSchedulers():  # запус расписания
-    schedule.every().day.at("01:09").do(notify_weather)
+    schedule.every().day.at("05:00").do(notify_weather)
+    schedule.every().day.at("06:00").do(notify_weather)
+    schedule.every().day.at("07:00").do(notify_weather)
+    schedule.every().day.at("08:00").do(notify_weather)
+    schedule.every().day.at("09:00").do(notify_weather)
+    schedule.every().day.at("10:00").do(notify_weather)
+    schedule.every().day.at("11:00").do(notify_weather)
+    schedule.every().day.at("12:00").do(notify_weather)
+    schedule.every().day.at("13:00").do(notify_weather)
+    schedule.every().day.at("14:00").do(notify_weather)
+    schedule.every().day.at("15:00").do(notify_weather)
+    schedule.every().day.at("16:00").do(notify_weather)
+    schedule.every().day.at("17:00").do(notify_weather)
+    schedule.every().day.at("18:00").do(notify_weather)
+    schedule.every().day.at("19:00").do(notify_weather)
+    schedule.every().day.at("20:00").do(notify_weather)
+    schedule.every().day.at("21:00").do(notify_weather)
+    schedule.every().day.at("22:00").do(notify_weather)
+    schedule.every().day.at("23:00").do(notify_weather)
     while True:
         schedule.run_pending()
         time.sleep(1)
@@ -168,4 +187,11 @@ if __name__ == '__main__':
     t2 = threading.Thread(target=runSchedulers)
     t1.start()
     t2.start()
+
     print(list_id_users_in_db())
+    list_tuples_id_users = list_id_users_in_db()
+    list_id_users = []
+    for tuple_in_list in list_tuples_id_users:
+        list_id_users.append(tuple_in_list[1])
+    a = get_time_notify_user_db(user_id=list_id_users[0])
+    print(type(a))
