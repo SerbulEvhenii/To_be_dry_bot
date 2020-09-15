@@ -1,4 +1,6 @@
 import threading
+
+import schedule_bot
 from bot import bot  # Импортируем объект бота
 from messages import *  # Инмпортируем все с файла сообщений
 from db import *  # Импортируем все методы из файла для базы данных
@@ -54,7 +56,7 @@ def notify_weather():
     for tuple_in_list in list_tuples_id_users:
         list_id_users.append(tuple_in_list[1])
     for user_id_in_list in list_id_users:
-        if get_time_notify_user_db(user_id=user_id_in_list) == '11:00':
+        if get_time_notify_user_db(user_id=user_id_in_list) == '55:00':
             bot.send_message(chat_id=user_id_in_list, text=weather_api.show_current_daily_weather())
 
 
@@ -136,9 +138,10 @@ def handle_text(message):
             unsubscribe(message)
         else:
             bot.send_message(message.chat.id, 'Вы еще не подписывались на уведомления!')
-    elif 'ошибка' in text or '/help' in text == '/help' or 'возникла ошибка' in text:
+    elif 'ошибка' in text or '/help' in text or 'help' in text or 'возникла ошибка' in text:
         keyboard = telebot.types.InlineKeyboardMarkup()
-        keyboard.add(telebot.types.InlineKeyboardButton('Написать разаботчику', url='telegram.me/serbul_evhenii'))
+        keyboard.add(telebot.types.InlineKeyboardButton(emoji.emojize(':pencil: Написать разаботчику'),
+                                                        url='telegram.me/serbul_evhenii'))
         bot.send_message(message.chat.id,
                          f"Если возникла ошибка или Вы нашли баг в боте, сообщите пожалуйста разработчику.",
                          reply_markup=keyboard)
@@ -168,7 +171,7 @@ def runSchedulers():  # запус расписания
     schedule.every().day.at("12:00").do(notify_weather)
     schedule.every().day.at("13:00").do(notify_weather)
     schedule.every().day.at("14:00").do(notify_weather)
-    schedule.every().day.at("15:00").do(notify_weather)
+    schedule.every().day.at("15:00").do(schedule_bot.notify_weather_15_00)
     schedule.every().day.at("16:00").do(notify_weather)
     schedule.every().day.at("17:00").do(notify_weather)
     schedule.every().day.at("18:00").do(notify_weather)
