@@ -190,11 +190,3 @@ if __name__ == '__main__':
     t2 = threading.Thread(target=runSchedulers)
     t1.start()
     t2.start()
-
-    print(list_id_users_in_db())
-    list_tuples_id_users = list_id_users_in_db()
-    list_id_users = []
-    for tuple_in_list in list_tuples_id_users:
-        list_id_users.append(tuple_in_list[1])
-    a = get_time_notify_user_db(user_id=list_id_users[0])
-    print(type(a))
