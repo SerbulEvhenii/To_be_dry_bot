@@ -32,7 +32,7 @@ def show_current_weather():
 def show_current_daily_weather():
     temp_min = round((get_weather())['daily'][0]['temp']['min'], 0)  # [0] - сегодня, 1 - завтра
     temp_max = round((get_weather())['daily'][0]['temp']['max'], 0)  # [0] - сегодня, 1 - завтра
-    pop = int((get_weather())['daily'][0]['pop']) * 100  # Вероятность осадков % (Precipitation)
+    pop = int((get_weather())['daily'][0]['pop'] * 100)  # Вероятность осадков % (Precipitation)
     return emoji.emojize(f'Погода на сегодня в Киеве:\n'
                          f'• :sun_behind_cloud: температура воздуха:\n'
                          f'мин. +{temp_min} макс. +{temp_max}\n'
@@ -42,7 +42,7 @@ def show_current_daily_weather():
 def show_tomorrow_weather():
     temp_min = round((get_weather())['daily'][1]['temp']['min'], 0)  # [1] - сегодня, 2 - завтра
     temp_max = round((get_weather())['daily'][1]['temp']['max'], 0)  # [1] - сегодня, 2 - завтра
-    pop = int((get_weather())['daily'][1]['pop']) * 100  # Вероятность осадков % (Precipitation)
+    pop = int((get_weather())['daily'][1]['pop'] * 100)  # Вероятность осадков % (Precipitation)
     return emoji.emojize(f'Погода на завтра в Киеве:\n'
                          f'• :sun_behind_cloud: температура воздуха:\n'
                          f'мин. +{temp_min} макс. +{temp_max}\n'
