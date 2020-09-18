@@ -1,1 +1,1 @@
-web: python3 bot_handlers.py
+worker: python bot_handlers.py
