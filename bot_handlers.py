@@ -1,5 +1,7 @@
+import logging
+import os
 import threading
-
+from flask import Flask, request
 import schedule_bot
 from bot import bot  # Импортируем объект бота
 from messages import *  # Инмпортируем все с файла сообщений
@@ -11,6 +13,7 @@ import inlineKeyboard  # Импортируем инлайн кавиатуры
 import emoji  # Импортируем смайлы http://www.unicode.org/emoji/charts/full-emoji-list.html
 import time
 import schedule
+import config
 
 
 @bot.message_handler(commands=['start'])
@@ -159,6 +162,10 @@ def runBot():  # инициализация БД и запуск бота
     init_db()
     bot.polling(none_stop=True)
 
+def runBot_server():  # инициализация БД и запуск бота на сервере flask
+    init_db()
+    server.run(host="0.0.0.0", port=os.environ.get('PORT', 80))
+
 
 def runSchedulers():  # запус расписания
     schedule.every().day.at("05:00").do(notify_weather)
@@ -186,7 +193,43 @@ def runSchedulers():  # запус расписания
 
 
 if __name__ == '__main__':
-    t1 = threading.Thread(target=runBot)
-    t2 = threading.Thread(target=runSchedulers)
-    t1.start()
-    t2.start()
+    # t1 = threading.Thread(target=runBot)
+    # t2 = threading.Thread(target=runSchedulers)
+    # t1.start()
+    # t2.start()
+
+    if "HEROKU" in list(os.environ.keys()):
+        logger = telebot.logger
+        telebot.logger.setLevel(logging.INFO)
+
+        server = Flask(__name__)
+
+
+        @server.route("/" + config.TOKEN, methods=['POST'])
+        def getMessage():
+            bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
+            return "!", 200
+
+
+        @server.route("/")
+        def webhook():
+            bot.remove_webhook()
+            bot.set_webhook(
+                url="https://bot-to-be-dry.herokuapp.com/" + config.TOKEN)
+            return "?", 200
+
+
+        t1 = threading.Thread(target=runBot_server)
+        t2 = threading.Thread(target=runSchedulers)
+        t1.start()
+        t2.start()
+
+
+    else:
+        # если переменной окружения HEROKU нету, значит это запуск с машины разработчика.
+        # Удаляем вебхук на всякий случай, и запускаем с обычным поллингом.
+        bot.remove_webhook()
+        t1 = threading.Thread(target=runBot)
+        t2 = threading.Thread(target=runSchedulers)
+        t1.start()
+        t2.start()
