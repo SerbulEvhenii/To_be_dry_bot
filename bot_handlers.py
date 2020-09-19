@@ -205,7 +205,7 @@ if __name__ == '__main__':
         server = Flask(__name__)
 
 
-        @server.route("/" + config.TOKEN, methods=['POST'])
+        @server.route("/", methods=['POST'])
         def getMessage():
             bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
             return "!", 200
@@ -214,8 +214,7 @@ if __name__ == '__main__':
         @server.route("/")
         def webhook():
             bot.remove_webhook()
-            bot.set_webhook(
-                url="https://bot-to-be-dry.herokuapp.com/" + config.TOKEN)
+            bot.set_webhook(url="https://bot-to-be-dry.herokuapp.com/bot")
             return "?", 200
 
 
