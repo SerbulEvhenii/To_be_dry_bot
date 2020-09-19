@@ -11,7 +11,6 @@ import inlineKeyboard  # Импортируем инлайн кавиатуры
 import emoji  # Импортируем смайлы http://www.unicode.org/emoji/charts/full-emoji-list.html
 import time
 import schedule
-import WebHook
 
 
 
@@ -163,7 +162,7 @@ def runBot():  # инициализация БД и запуск бота
 
 def runBotServerFlask():  # инициализация БД и запуск бота на сервере Flask
     init_db()
-    WebHook.server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+    bot.server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 443)))
 
 
 def runSchedulers():  # запус расписания
