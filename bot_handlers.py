@@ -1,7 +1,7 @@
 import os
 import threading
 import schedule_bot
-from bot import bot  # Импортируем объект бота
+from bot_config import bot, server  # Импортируем объект бота
 from messages import *  # Инмпортируем все с файла сообщений
 from db import *  # Импортируем все методы из файла для базы данных
 import weather_api  # Импортируем все методы из файла для погоды
@@ -162,7 +162,7 @@ def runBot():  # инициализация БД и запуск бота
 
 def runBotServerFlask():  # инициализация БД и запуск бота на сервере Flask
     init_db()
-    bot.server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 443)))
+    server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 443)))
 
 
 def runSchedulers():  # запус расписания

@@ -4,8 +4,7 @@
 # bot = telebot.TeleBot(config.TOKEN)
 # print('Бот запущен...')
 # # print(bot.get_me())
-
-
+import os
 
 from flask import Flask, request
 import telebot
@@ -27,3 +26,4 @@ def webhook():
     bot.set_webhook(url='https://bot-to-be-dry.herokuapp.com/' + TOKEN)
     return "!", 200
 
+server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 443)))

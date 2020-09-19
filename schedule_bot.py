@@ -4,7 +4,7 @@ import schedule
 import weather_api
 import bot_handlers
 import db
-from bot import bot
+from bot_config import bot
 
 
 def notify_weather_15_00():
