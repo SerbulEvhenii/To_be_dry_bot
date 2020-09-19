@@ -5,6 +5,8 @@ import config  # подключаем конфиг, чтобы взять с н�
 # print('Бот запущен...')
 # # print(bot.get_me())
 
+#worker: python bot_handlers.py
+
 import telebot
 import os
 from flask import Flask, request
