@@ -1,2 +1,2 @@
-heroku ps:scale web=1
-web: python bot_handlers.py
+bot: python bot_handlers.py
+clock: python schedule_notify.py

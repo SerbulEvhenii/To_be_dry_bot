@@ -26,11 +26,11 @@ inline_btn_15 = telebot.types.InlineKeyboardButton(emoji.emojize(':one-thirty: 1
 inline_btn_16 = telebot.types.InlineKeyboardButton(emoji.emojize(':one-thirty: 20:00'), callback_data='btn20:00')
 inline_btn_17 = telebot.types.InlineKeyboardButton(emoji.emojize(':one-thirty: 21:00'), callback_data='btn21:00')
 inline_btn_18 = telebot.types.InlineKeyboardButton(emoji.emojize(':one-thirty: 22:00'), callback_data='btn22:00')
-inline_btn_19 = telebot.types.InlineKeyboardButton(emoji.emojize(':one-thirty: 23:00'), callback_data='btn23:00')
+inline_btn_19 = telebot.types.InlineKeyboardButton(emoji.emojize('Ввести вручную'), callback_data='btn_edit')
 
 btn_tuple_data = ('btn05:00', 'btn06:00', 'btn07:00', 'btn08:00', 'btn09:00', 'btn10:00', 'btn11:00', 'btn12:00',
                   'btn13:00', 'btn14:00', 'btn15:00', 'btn16:00', 'btn17:00', 'btn18:00', 'btn19:00', 'btn20:00',
-                  'btn21:00', 'btn22:00', 'btn23:00'
+                  'btn21:00', 'btn22:00', 'btn_edit'
                   )
 
 inline_kb_all_times = telebot.types.InlineKeyboardMarkup().add(inline_btn_1, inline_btn_2, inline_btn_3, inline_btn_4,
