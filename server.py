@@ -3,6 +3,8 @@ from flask import Flask, request
 import telebot
 from config import TOKEN
 
+# TZ Europe/Kiev
+
 
 bot = telebot.TeleBot(TOKEN)  # Создание бота
 server = Flask(__name__)      # Создание сервера
