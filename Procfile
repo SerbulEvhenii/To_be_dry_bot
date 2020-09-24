@@ -1,2 +1,2 @@
-bot: python bot_handlers.py
+web: gunicorn app:server
 clock: python schedule_notify.py

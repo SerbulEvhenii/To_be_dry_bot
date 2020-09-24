@@ -2,7 +2,8 @@ import datetime
 import os
 import threading
 import db
-from bot_config import bot
+# from bot_config import bot
+from server import bot
 from db import *  # Импортируем все методы из файла для базы данных
 import weather_api  # Импортируем все методы из файла для погоды
 import telebot.types  # Импортируем типы телеграма API
@@ -222,8 +223,8 @@ def runBot():  # инициализация БД и запуск бота
 #         time.sleep(1)
 
 
-if __name__ == '__main__':
-    runBot()
+# if __name__ == '__main__':
+#     runBot()
     # t1 = threading.Thread(target=runBotServerFlask)
     # t2 = threading.Thread(target=runSchedulers)
     # t1.start()
