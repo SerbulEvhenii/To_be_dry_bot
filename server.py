@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request
+from flask import Flask, request, abort
 import telebot
 from config import TOKEN
 
@@ -7,16 +7,24 @@ from config import TOKEN
 
 
 bot = telebot.TeleBot(TOKEN)  # Создание бота
-server = Flask(__name__)      # Создание сервера
+app = Flask(__name__)      # Создание сервера
 
 
-@server.route('/' + TOKEN, methods=['POST'])
-def getMessage():
-    bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
-    return "!", 200
+@app.route('/' + TOKEN, methods=['POST'])
+# def getMessage():
+#     bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
+#     return "!", 200
+def telegram_webhook():
+    if request.headers.get('content-type') == 'application/json':
+        json_string = request.stream.read().decode('utf-8')
+        update = telebot.types.Update.de_json(json_string)
+        bot.process_new_updates([update])
+        return 'ok', 200
+    else:
+        abort(403)
 
 
-@server.route('/')
+@app.route('/')
 def webhook():
     bot.remove_webhook()
     bot.set_webhook(url='https://testserbulbot.herokuapp.com/' + TOKEN)
@@ -24,4 +32,4 @@ def webhook():
 
 
 if __name__ == "__main__":
-    server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+    app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
