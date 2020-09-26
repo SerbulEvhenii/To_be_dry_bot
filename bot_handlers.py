@@ -200,14 +200,17 @@ def text_handler(message):
     bot.send_message(message.chat.id, 'Вау, красиво!')
 
 
-# def runBot():  # инициализация БД и запуск бота
-#     init_db()
-#     bot.polling(none_stop=True)
+def runBotServerFlask():  # инициализация БД и запуск бота на сервере Flask
+    print('База данных инициализированна...')
+    init_db()
+    print('Сервер запущен...')
+    app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
 
-# def runBotServerFlask():  # инициализация БД и запуск бота на сервере Flask
-#     init_db()
-#     server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 443)))
-
+def runSchedulers():
+    print('Расписание запущено...')
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
 
 tuple_times = ("05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00",
                "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00")
@@ -234,18 +237,17 @@ schedule.every().day.at("23:00").do(notify_weather)
 schedule.every(1).minutes.do(notify_weather)
 
 
-# if __name__ == '__main__':
-#     runBot()
-    # t1 = threading.Thread(target=runBotServerFlask)
-    # t2 = threading.Thread(target=runSchedulers)
-    # t1.start()
-    # t2.start()
+if __name__ == '__main__':
+    t1 = threading.Thread(target=runBotServerFlask)
+    t2 = threading.Thread(target=runSchedulers)
+    t1.start()
+    t2.start()
 
-if __name__ == "__main__":
-    init_db()
-    app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
-    print('Расписание запущено...')
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+# if __name__ == "__main__":
+#     init_db()
+#     app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+#     print('Расписание запущено...')
+#     while True:
+#         schedule.run_pending()
+#         time.sleep(1)
 
