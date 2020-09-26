@@ -1,2 +1,2 @@
 web: python bot_handlers.py
-clock: python schedule_notify.py
+worker: python schedule_notify.py
