@@ -1,40 +1,34 @@
-import datetime
+import json
 import os
-import time
+from flask import Flask, request, abort, jsonify
+from telebot import types, TeleBot
+from config import TOKEN
 
-if __name__ == '__main__':
+# TZ Europe/Kiev
+URL = 'https://testserbulbot.herokuapp.com/'
 
 
-    start = datetime.datetime.now()
-    a = [1, 2, 3, 4, 5, 5,6 ,7, 8, 9, 0, 3, 9 ,8]
-    for x in a:
-        print(x)
-    end = datetime.datetime.now()
-    print(start)
-    print(end)
-    print(end - start)
+bot = TeleBot(TOKEN)  # Создание бота
+app = Flask(__name__)      # Создание сервера
 
-    min = datetime.timedelta(minutes=10)
-    delta = start + min
 
-    if start > delta:
-        print('прошло 10 мин')
-    elif start < delta:
-        print('еще не прошло 10 мин')
+@app.route('/', methods=['GET', 'HEAD'])
+def index():
+    return ''
 
-    print(os.path.getctime('weather.json'))
-    date_save = time.ctime(os.path.getmtime('weather.json'))
-    print(date_save[-13:-5])
-    print(min)
 
-    save_10 = datetime.datetime.now() + datetime.timedelta(minutes=10)
-    print('save_10 -- ', save_10)
-    last_save_file = datetime.datetime.fromtimestamp(os.path.getmtime('weather.json')) + datetime.timedelta(minutes=10)
-    print('c -- ', last_save_file)
-    # last_save_file += datetime.timedelta(minutes=10)
-    print('last ----', last_save_file)
+@app.route('/' + TOKEN, methods=['POST'])
+def webhook():
+    bot.process_new_updates([types.Update.de_json(request.stream.read().decode("utf-8"))])
+    print("Message")
+    return "ok", 200
 
-    if last_save_file > save_10:
-        print('прошло 10 мин')
-    elif last_save_file < save_10:
-        print('еще не прошло 10 мин')
+
+# @app.route('/')
+# def webhook():
+#     bot.set_webhook(url='https://testserbulbot.herokuapp.com/' + TOKEN)
+#     return "!", 200
+
+#
+# if __name__ == "__main__":
+#     app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))

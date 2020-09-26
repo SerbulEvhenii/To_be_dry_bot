@@ -8,38 +8,20 @@ from config import TOKEN
 URL = 'https://testserbulbot.herokuapp.com/'
 
 
-bot = TeleBot(TOKEN)  # Создание бота
+bot = TeleBot(TOKEN, threaded=False)  # Создание бота
 app = Flask(__name__)      # Создание сервера
 
-# def write_json(data, filename='answer.json'):
-#     with open(filename, 'w') as f:
-#         json.dump(data, f, indent=2, ensure_ascii=False)
-
-
-@app.route('/', methods=['GET', 'HEAD'])
-def index():
-    return ''
-
-
-@app.route('/' + TOKEN, methods=['POST'])
+@app.route('/' + TOKEN, methods=["POST"])
 def webhook():
     bot.process_new_updates([types.Update.de_json(request.stream.read().decode("utf-8"))])
     print("Message")
     return "ok", 200
-# def telegram_webhook():
-#     if request.headers.get('content-type') == 'application/json':
-#         json_string = request.get_data().decode('utf-8')
-#         update = types.Update.de_json(json_string)
-#         bot.process_new_updates([update])
-#         return ''
-#     else:
-#         abort(403)
 
 
-# @app.route('/')
-# def webhook():
-#     bot.set_webhook(url='https://testserbulbot.herokuapp.com/' + TOKEN)
-#     return "!", 200
+@bot.message_handler(commands=['start', 'help'])
+def startCommand(message):
+    bot.send_message(message.chat.id, 'Hi *' + message.chat.first_name + '*!')
+
 
 
 if __name__ == "__main__":
