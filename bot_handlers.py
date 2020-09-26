@@ -2,8 +2,6 @@ import datetime
 import os
 import threading
 import db
-# from bot_config import bot
-from server import bot
 from db import *  # Импортируем все методы из файла для базы данных
 import weather_api  # Импортируем все методы из файла для погоды
 import telebot.types  # Импортируем типы телеграма API
@@ -12,6 +10,19 @@ import inlineKeyboard  # Импортируем инлайн кавиатуры
 import emoji  # Импортируем смайлы http://www.unicode.org/emoji/charts/full-emoji-list.html
 import time
 import schedule
+from flask import Flask, request, abort, jsonify
+from telebot import types, TeleBot
+from config import TOKEN
+
+URL = 'https://testserbulbot.herokuapp.com/'
+bot = TeleBot(TOKEN, threaded=False)         # Создание бота
+app = Flask(__name__)                        # Создание сервера
+
+@app.route('/' + TOKEN, methods=["POST"])
+def webhook():
+    bot.process_new_updates([types.Update.de_json(request.stream.read().decode("utf-8"))])
+    print("Message")
+    return "ok", 200
 
 
 @bot.message_handler(commands=['start'])
@@ -189,9 +200,9 @@ def text_handler(message):
     bot.send_message(message.chat.id, 'Вау, красиво!')
 
 
-def runBot():  # инициализация БД и запуск бота
-    init_db()
-    bot.polling(none_stop=True)
+# def runBot():  # инициализация БД и запуск бота
+#     init_db()
+#     bot.polling(none_stop=True)
 
 # def runBotServerFlask():  # инициализация БД и запуск бота на сервере Flask
 #     init_db()
@@ -229,4 +240,8 @@ def runBot():  # инициализация БД и запуск бота
     # t2 = threading.Thread(target=runSchedulers)
     # t1.start()
     # t2.start()
+
+if __name__ == "__main__":
+    init_db()
+    app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
 
