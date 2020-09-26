@@ -1,14 +1,14 @@
 import json
 import os
 from flask import Flask, request, abort, jsonify
-from telebot import types
+from telebot import types, TeleBot
 from config import TOKEN
 
 # TZ Europe/Kiev
 URL = 'https://testserbulbot.herokuapp.com/'
 
 
-bot = telebot.TeleBot(TOKEN)  # Создание бота
+bot = TeleBot(TOKEN)  # Создание бота
 app = Flask(__name__)      # Создание сервера
 
 # def write_json(data, filename='answer.json'):
