@@ -209,29 +209,29 @@ def text_handler(message):
 #     server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 443)))
 
 
-# def runSchedulers():  # запус расписания
-#     schedule.every().day.at("05:00").do(notify_weather)
-#     schedule.every().day.at("06:00").do(notify_weather)
-#     schedule.every().day.at("07:00").do(notify_weather)
-#     schedule.every().day.at("08:00").do(notify_weather)
-#     schedule.every().day.at("09:00").do(notify_weather)
-#     schedule.every().day.at("10:00").do(notify_weather)
-#     schedule.every().day.at("11:00").do(notify_weather)
-#     schedule.every().day.at("12:00").do(notify_weather)
-#     schedule.every().day.at("13:00").do(notify_weather)
-#     schedule.every().day.at("14:00").do(notify_weather)
-#     schedule.every().day.at("15:00").do(schedule_bot.notify_weather_15_00)
-#     schedule.every().day.at("16:00").do(notify_weather)
-#     schedule.every().day.at("17:00").do(notify_weather)
-#     schedule.every().day.at("18:00").do(notify_weather)
-#     schedule.every().day.at("19:00").do(notify_weather)
-#     schedule.every().day.at("20:00").do(notify_weather)
-#     schedule.every().day.at("21:00").do(notify_weather)
-#     schedule.every().day.at("22:00").do(notify_weather)
-#     schedule.every().day.at("23:00").do(notify_weather)
-#     while True:
-#         schedule.run_pending()
-#         time.sleep(1)
+tuple_times = ("05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00",
+               "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00")
+
+schedule.every().day.at("05:00").do(notify_weather)
+schedule.every().day.at("06:00").do(notify_weather)
+schedule.every().day.at("07:00").do(notify_weather)
+schedule.every().day.at("08:00").do(notify_weather)
+schedule.every().day.at("09:00").do(notify_weather)
+schedule.every().day.at("10:00").do(notify_weather)
+schedule.every().day.at("11:00").do(notify_weather)
+schedule.every().day.at("12:00").do(notify_weather)
+schedule.every().day.at("13:00").do(notify_weather)
+schedule.every().day.at("14:00").do(notify_weather)
+schedule.every().day.at("15:00").do(notify_weather)
+schedule.every().day.at("16:00").do(notify_weather)
+schedule.every().day.at("17:00").do(notify_weather)
+schedule.every().day.at("18:00").do(notify_weather)
+schedule.every().day.at("19:00").do(notify_weather)
+schedule.every().day.at("20:00").do(notify_weather)
+schedule.every().day.at("21:00").do(notify_weather)
+schedule.every().day.at("22:00").do(notify_weather)
+schedule.every().day.at("23:00").do(notify_weather)
+schedule.every(1).minutes.do(notify_weather)
 
 
 # if __name__ == '__main__':
@@ -244,4 +244,8 @@ def text_handler(message):
 if __name__ == "__main__":
     init_db()
     app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+    print('Расписание запущено...')
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
 
