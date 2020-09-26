@@ -21,7 +21,7 @@ def index():
     return ''
 
 
-@app.route(URL + TOKEN, methods=['POST'])
+@app.route('/' + TOKEN, methods=['POST'])
 def telegram_webhook():
     if request.headers.get('content-type') == 'application/json':
         json_string = request.get_data().decode('utf-8')
