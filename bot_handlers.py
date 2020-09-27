@@ -71,6 +71,7 @@ def unsubscribe(message):
 #     bot.send_message(message.chat.id, SET_TIME_NOTIFY)
 
 def notify_weather():
+    print('Я внутри метода "notify_weather" в файле bot_handlers.py')
     time_now = datetime.datetime.now().strftime('%H:%M')
     list_tuples_id_users = db.list_id_users_in_db()
     list_id_users = []

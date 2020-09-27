@@ -1,5 +1,6 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
-from .bot_handlers import notify_weather
+from bot_handlers import notify_weather
+
 
 sched = BlockingScheduler()
 
