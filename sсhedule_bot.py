@@ -24,7 +24,7 @@ tuple_times = ("05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "1
 # schedule.every().day.at("21:00").do(notify_weather)
 # schedule.every().day.at("22:00").do(notify_weather)
 # schedule.every().day.at("23:00").do(notify_weather)
-schedule.every(1).minutes.do(notify_weather)
+schedule.every(30).seconds.do(notify_weather)
 
 
 if __name__ == '__main__':
