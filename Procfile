@@ -1,2 +1,2 @@
 web: python bot_handlers.py
-clock: python schedule_notify.py
+clock: python app/schedule_notify.py
