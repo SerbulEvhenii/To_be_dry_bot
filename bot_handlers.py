@@ -8,8 +8,6 @@ import telebot.types  # Импортируем типы телеграма API
 import markups  # Импортируем кнопки для бота
 import inlineKeyboard  # Импортируем инлайн кавиатуры
 import emoji  # Импортируем смайлы http://www.unicode.org/emoji/charts/full-emoji-list.html
-import time
-import schedule
 from flask import Flask, request, abort, jsonify
 from telebot import types, TeleBot
 from config import TOKEN
@@ -200,54 +198,30 @@ def text_handler(message):
     bot.send_message(message.chat.id, 'Вау, красиво!')
 
 
-def runBotServerFlask():  # инициализация БД и запуск бота на сервере Flask
-    print('База данных инициализированна...')
-    init_db()
-    print('Сервер запущен...')
-    app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
-
-def runSchedulers():
-    print('Расписание запущено...')
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
-
-tuple_times = ("05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00",
-               "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00")
-
-schedule.every().day.at("05:00").do(notify_weather)
-schedule.every().day.at("06:00").do(notify_weather)
-schedule.every().day.at("07:00").do(notify_weather)
-schedule.every().day.at("08:00").do(notify_weather)
-schedule.every().day.at("09:00").do(notify_weather)
-schedule.every().day.at("10:00").do(notify_weather)
-schedule.every().day.at("11:00").do(notify_weather)
-schedule.every().day.at("12:00").do(notify_weather)
-schedule.every().day.at("13:00").do(notify_weather)
-schedule.every().day.at("14:00").do(notify_weather)
-schedule.every().day.at("15:00").do(notify_weather)
-schedule.every().day.at("16:00").do(notify_weather)
-schedule.every().day.at("17:00").do(notify_weather)
-schedule.every().day.at("18:00").do(notify_weather)
-schedule.every().day.at("19:00").do(notify_weather)
-schedule.every().day.at("20:00").do(notify_weather)
-schedule.every().day.at("21:00").do(notify_weather)
-schedule.every().day.at("22:00").do(notify_weather)
-schedule.every().day.at("23:00").do(notify_weather)
-schedule.every(1).minutes.do(notify_weather)
-
-
-if __name__ == '__main__':
-    t1 = threading.Thread(target=runBotServerFlask)
-    t2 = threading.Thread(target=runSchedulers)
-    t1.start()
-    t2.start()
-
-# if __name__ == "__main__":
+# def runBotServerFlask():  # инициализация БД и запуск бота на сервере Flask
+#     print('База данных инициализированна...')
 #     init_db()
+#     print('Сервер запущен...')
 #     app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+#
+# def runSchedulers():
 #     print('Расписание запущено...')
 #     while True:
 #         schedule.run_pending()
 #         time.sleep(1)
+
+
+
+# if __name__ == '__main__':
+#     t1 = threading.Thread(target=runBotServerFlask)
+#     t2 = threading.Thread(target=runSchedulers)
+#     t1.start()
+#     t2.start()
+
+if __name__ == "__main__":
+    init_db()
+    print('База данных инициализированна...')
+    app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+    print('Сервер с ботом запущен...')
+
 
