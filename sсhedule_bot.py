@@ -26,8 +26,9 @@ tuple_times = ("05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "1
 # schedule.every().day.at("23:00").do(notify_weather)
 schedule.every(1).minutes.do(notify_weather)
 
-print('Расписание запущено...')
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+if __name__ == '__main__':
+    print('Расписание запущено...')
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
