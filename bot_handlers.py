@@ -14,8 +14,8 @@ from config import TOKEN
 
 
 URL = 'https://bot-to-be-dry.herokuapp.com/'
-bot = TeleBot(TOKEN, threaded=False)         # Создание бота
-app = Flask(__name__)                        # Создание сервера
+bot = TeleBot(TOKEN)         # Создание бота
+app = Flask(__name__)        # Создание сервера
 
 @app.route('/' + TOKEN, methods=["POST"])
 def webhook():
