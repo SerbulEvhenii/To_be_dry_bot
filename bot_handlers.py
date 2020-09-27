@@ -81,6 +81,7 @@ def notify_weather():
     for user_id_in_list in list_id_users:
         if db.get_time_notify_user_db(user_id=user_id_in_list) == time_now:
             bot.send_message(chat_id=user_id_in_list, text=weather_api.show_current_daily_weather())
+    print(list_tuples_id_users)
 
 
 # Выполняется, когда пользователь вызывает /time

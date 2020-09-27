@@ -5,7 +5,7 @@ from bot_handlers import notify_weather
 sched = BlockingScheduler()
 
 
-@sched.scheduled_job('interval', seconds=30)
+@sched.scheduled_job('interval', seconds=60)
 def timed_job():
     notify_weather()
     print('Тестирование расписания, я вызываюсь каждые 30 секунд.')
