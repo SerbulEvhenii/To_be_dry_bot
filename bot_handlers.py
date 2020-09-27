@@ -12,6 +12,7 @@ from flask import Flask, request, abort, jsonify
 from telebot import types, TeleBot
 from config import TOKEN
 
+
 URL = 'https://bot-to-be-dry.herokuapp.com/'
 bot = TeleBot(TOKEN, threaded=False)         # Создание бота
 app = Flask(__name__)                        # Создание сервера
