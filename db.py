@@ -97,7 +97,21 @@ def get_time_notify_user_db(conn, user_id: int):
     c.execute(f'SELECT time_notify FROM bot_users WHERE user_id=?', [user_id])
     return c.fetchone()[0]
 
+@ensure_connection
+def set_geoposition(conn, user_id: int, latit: float, long: float):
+    c = conn.cursor()
+    c.execute(f'UPDATE bot_users SET latitude={latit} WHERE user_id = {user_id}')
+    c.execute(f'UPDATE bot_users SET longitude={long} WHERE user_id = {user_id}')
+    conn.commit()
 
+@ensure_connection
+def get_geoposition(conn, user_id: int):
+    c = conn.cursor()
+    c.execute(f'SELECT latitude FROM bot_users WHERE user_id=?', [user_id])
+    latitude = c.fetchone()[0]
+    c.execute(f'SELECT longitude FROM bot_users WHERE user_id=?', [user_id])
+    longitude = c.fetchone()[0]
+    return latitude, longitude
 
 
 if __name__ == '__main__':

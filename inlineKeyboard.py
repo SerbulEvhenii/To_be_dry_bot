@@ -1,7 +1,7 @@
 import telebot
 import emoji
 
-inline_btn_menu_geo = telebot.types.InlineKeyboardButton(emoji.emojize(':world_map: Настройки местоположения'),
+inline_btn_menu_geo = telebot.types.InlineKeyboardButton(emoji.emojize(':world_map: Настройка местоположения'),
                                                          callback_data='menu_btn_geo')
 inline_btn_menu_notify = telebot.types.InlineKeyboardButton(emoji.emojize(':alarm_clock: Выбор времени уведомлений'),
                                                             callback_data='menu_btn_notify')

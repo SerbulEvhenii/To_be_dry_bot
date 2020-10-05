@@ -1,6 +1,6 @@
 import time
 import schedule
-from bot_handlers import notify_weather
+import bot_handlers
 
 tuple_times = ("05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00",
                "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00")
@@ -24,7 +24,7 @@ tuple_times = ("05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "1
 # schedule.every().day.at("21:00").do(notify_weather)
 # schedule.every().day.at("22:00").do(notify_weather)
 # schedule.every().day.at("23:00").do(notify_weather)
-schedule.every(30).seconds.do(notify_weather)
+schedule.every(30).seconds.do(bot_handlers.notify_weather)
 
 
 if __name__ == '__main__':
