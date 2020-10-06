@@ -64,6 +64,13 @@ def unsubscribe(message):
     bot.send_message(message.chat.id, 'Вы успешно отписались от уведомлений.')
 
 
+@bot.message_handler(commands=['users'])
+# Выполняется, когда пользователь вызывает /users
+def admin_count_users(message):
+    users = db.count_users()
+    bot.send_message(message.chat.id, f'Колличество зарегистрированных пользователей бота: {users}')
+
+
 def notify_weather():
     time_now = datetime.datetime.now().strftime('%H:%M')
     list_tuples_id_users = db.list_id_users_in_db()

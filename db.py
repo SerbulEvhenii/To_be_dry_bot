@@ -113,6 +113,13 @@ def get_geoposition(conn, user_id: int):
     longitude = c.fetchone()[0]
     return latitude, longitude
 
+@ensure_connection
+def count_users(conn):
+    c = conn.cursor()
+    c.execute(f'SELECT COUNT(*) FROM bot_users')
+    users = c.fetchone()[0]
+    return users
+
 
 if __name__ == '__main__':
     init_db(force=True)
