@@ -1,7 +1,8 @@
 import psycopg2
 import os
 
-DATABASE_URL = os.environ['DATABASE_URL']
+# DATABASE_URL = os.environ['DATABASE_URL']
+DATABASE_URL = 'postgres://qnmfwpxexlnpyy:df7b73b72728342467ac17c6a35599132920353ad3f2c740581465ee9af5991c@ec2-54-247-107-109.eu-west-1.compute.amazonaws.com:5432/ddsblsr5em9rgf'
 
 def ensure_connection(func):
     """ Декоратор для подключения к СУБД: открывает соединение,

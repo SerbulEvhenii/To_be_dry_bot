@@ -53,7 +53,7 @@ def show_current_daily_weather(user_id):
     feel_temp_eve = round((read_json())['daily'][0]['feels_like']['eve'], 0)
     pop = int((read_json())['daily'][0]['pop'] * 100)  # Вероятность осадков % (Precipitation)
     date_api = datetime.datetime.fromtimestamp((read_json())['daily'][0]['dt'])
-    date_api_str = date_api.strftime('%d.%m.')
+    date_api_str = date_api.strftime('%d.%m')
     return emoji.emojize(f'Погода на сегодня ({date_api_str}) в {city}:\n'
                          f':sun_behind_cloud: температура воздуха:\n'
                          f'• мин. +{temp_min} макс. +{temp_max}\n'
@@ -70,7 +70,7 @@ def show_tomorrow_weather(user_id):
     temp_max = round((read_json())['daily'][1]['temp']['max'], 0)  # [1] - сегодня, 2 - завтра
     pop = int((read_json())['daily'][1]['pop'] * 100)  # Вероятность осадков % (Precipitation)
     date_api = datetime.datetime.fromtimestamp((read_json())['daily'][1]['dt'])
-    date_api_str = date_api.strftime('%d.%m.')
+    date_api_str = date_api.strftime('%d.%m')
     return emoji.emojize(f'Погода на завтра ({date_api_str}) в {city}:\n'
                          f'• :sun_behind_cloud: температура воздуха:\n'
                          f'мин. +{temp_min} макс. +{temp_max}\n'

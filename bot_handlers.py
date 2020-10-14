@@ -261,11 +261,11 @@ def runSchedulers():
 
 
 # дом
-# if __name__ == '__main__':
-#     t1 = threading.Thread(target=runBotHome)
-#     t2 = threading.Thread(target=runSchedulers)
-#     t1.start()
-#     t2.start()
+if __name__ == '__main__':
+    t1 = threading.Thread(target=runBotHome)
+    t2 = threading.Thread(target=runSchedulers)
+    t1.start()
+    t2.start()
 
 # if __name__ == "__main__":
 #     db.init_db()
@@ -273,10 +273,10 @@ def runSchedulers():
 #     app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
 
 # Heroku
-if __name__ == '__main__':
-    t1 = threading.Thread(target=runBotServerFlask)
-    t2 = threading.Thread(target=runSchedulers)
-    t1.start()
-    t2.start()
+# if __name__ == '__main__':
+#     t1 = threading.Thread(target=runBotServerFlask)
+#     t2 = threading.Thread(target=runSchedulers)
+#     t1.start()
+#     t2.start()
 
 
