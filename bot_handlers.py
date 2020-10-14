@@ -1,8 +1,8 @@
 import datetime
 import threading
-
+import os
 import bot_schedule
-import db  # Импортируем все методы из файла для базы данных
+import db_postgreSQL as db  # Импортируем все методы из файла для базы данных
 import weather_api  # Импортируем все методы из файла для погоды
 import telebot.types  # Импортируем типы телеграма API
 import markups  # Импортируем кнопки для бота
@@ -13,7 +13,7 @@ from telebot import types, TeleBot
 import config
 
 
-URL = 'https://serbulevhenii.pythonanywhere.com/'
+URL = 'https://bot-to-be-dry.herokuapp.com/'
 bot = TeleBot(config.TOKEN, threaded=False)         # Создание бота
 app = Flask(__name__)                               # Создание сервера
 
@@ -249,17 +249,16 @@ def runSchedulers():
 
 
 
+#
+# if __name__ == '__main__':
+#     t1 = threading.Thread(target=runBotHome)
+#     t2 = threading.Thread(target=runSchedulers)
+#     t1.start()
+#     t2.start()
 
-if __name__ == '__main__':
-    t1 = threading.Thread(target=runBotHome)
-    t2 = threading.Thread(target=runSchedulers)
-    t1.start()
-    t2.start()
-
-# if __name__ == "__main__":
-#     runBotHome()
-    # init_db()
-    # print('База данных инициализированна...')
-    # app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+if __name__ == "__main__":
+    db.init_db()
+    print('База данных инициализированна...')
+    app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
 
 
