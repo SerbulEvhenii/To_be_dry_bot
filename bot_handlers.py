@@ -8,7 +8,7 @@ import telebot.types  # Импортируем типы телеграма API
 import markups  # Импортируем кнопки для бота
 import inlineKeyboard  # Импортируем инлайн кавиатуры
 import emoji  # Импортируем смайлы http://www.unicode.org/emoji/charts/full-emoji-list.html
-from flask import Flask, request, abort, jsonify
+from flask import Flask, request, abort, jsonify, Response
 from telebot import types, TeleBot
 import config
 
@@ -21,6 +21,11 @@ app = Flask(__name__)                               # Создание серв�
 @app.route('/')
 def index():
     return '<h1>Telegram BOT - To be dry. Погодный бот by Serbul Evhenii</h1>', 200
+
+@app.route("/wakemydyno.txt")
+def get_text():
+    content = 'Test ping Heroku'
+    return Response(content, mimetype="text/plain")
 
 
 @app.route('/' + config.TOKEN, methods=["POST"])
