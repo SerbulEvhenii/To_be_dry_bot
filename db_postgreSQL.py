@@ -108,7 +108,7 @@ def list_id_users_in_db(conn):
 @ensure_connection
 def get_time_notify_user_db(conn, user_id: int):
     c = conn.cursor()
-    c.execute(f'SELECT time_notify FROM bot_users WHERE user_id={user_id}')
+    c.execute('SELECT time_notify FROM bot_users WHERE user_id=%s;', (user_id))
     return c.fetchone()[0]
 
 
@@ -123,11 +123,21 @@ def set_geoposition(conn, user_id: int, latit: float, long: float):
 @ensure_connection
 def get_geoposition(conn, user_id: int):
     c = conn.cursor()
-    c.execute(f'SELECT latitude FROM bot_users WHERE user_id={user_id}')
+    c.execute('SELECT latitude FROM bot_users WHERE user_id=%s;', (user_id))
     latitude = c.fetchone()[0]
-    c.execute(f'SELECT longitude FROM bot_users WHERE user_id={user_id}')
+    c.execute(f'SELECT longitude FROM bot_users WHERE user_id=%s;', (user_id))
     longitude = c.fetchone()[0]
     return latitude, longitude
+
+
+# @ensure_connection
+# def get_geoposition(conn, user_id: int):
+#     c = conn.cursor()
+#     c.execute(f'SELECT latitude FROM bot_users WHERE user_id={user_id}')
+#     latitude = c.fetchone()[0]
+#     c.execute(f'SELECT longitude FROM bot_users WHERE user_id={user_id}')
+#     longitude = c.fetchone()[0]
+#     return latitude, longitude
 
 
 if __name__ == '__main__':
