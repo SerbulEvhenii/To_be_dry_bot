@@ -22,7 +22,7 @@ app = Flask(__name__)                               # Создание серв�
 def index():
     return '<h1>Telegram BOT - To be dry. Погодный бот by Serbul Evhenii</h1>', 200
 
-@app.route("/wakemydyno.txt")
+@app.route("/wakemydyno.txt")    # http://wakemydyno.com/ - не даем заснуть dyno
 def get_text():
     content = 'Test ping Heroku'
     return Response(content, mimetype="text/plain")
@@ -237,12 +237,9 @@ def text_handler(message):
 def runBotServerFlask():  # инициализация БД и запуск бота на сервере Flask
     print('База данных инициализированна...')
     db.init_db()
-    bot.set_webhook(url=URL + config.TOKEN)
-    print('Расписание запущено...')
-    bot_schedule.sched.start()
     print('Сервер запущен...')
-    app.run()
-    # app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+    app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+
 #
 # def runSchedulers():
 #     print('Расписание запущено...')
@@ -269,9 +266,15 @@ def runSchedulers():
 #     t1.start()
 #     t2.start()
 
-if __name__ == "__main__":
-    db.init_db()
-    print('База данных инициализированна...')
-    app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+# if __name__ == "__main__":
+#     db.init_db()
+#     print('База данных инициализированна...')
+#     app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+
+if __name__ == '__main__':
+    t1 = threading.Thread(target=runBotServerFlask)
+    t2 = threading.Thread(target=runSchedulers)
+    t1.start()
+    t2.start()
 
 
