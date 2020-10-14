@@ -120,6 +120,7 @@ def set_geoposition(conn, user_id: int, latit: float, long: float):
     conn.commit()
 
 
+
 @ensure_connection
 def get_geoposition(conn, user_id: int):
     c = conn.cursor()
