@@ -108,7 +108,7 @@ def list_id_users_in_db(conn):
 @ensure_connection
 def get_time_notify_user_db(conn, user_id: int):
     c = conn.cursor()
-    c.execute('SELECT time_notify FROM bot_users WHERE user_id=%s;', (user_id))
+    c.execute('SELECT time_notify FROM bot_users WHERE user_id=%s;', [user_id])
     return c.fetchone()[0]
 
 
