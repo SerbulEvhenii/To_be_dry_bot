@@ -1,10 +1,7 @@
 import psycopg2
 import os
 
-# DATABASE_URL = os.environ['DATABASE_URL']
-DATABASE_URL = 'postgres://qnmfwpxexlnpyy:df7b73b72728342467ac17c6a35599132920353ad3f2c740581465ee9af5991c@ec2-54-247-107-109.eu-west-1.compute.amazonaws.com:5432/ddsblsr5em9rgf'
-
-# conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+DATABASE_URL = os.environ['DATABASE_URL']
 
 def ensure_connection(func):
     """ Декоратор для подключения к СУБД: открывает соединение,
@@ -120,7 +117,6 @@ def set_geoposition(conn, user_id: int, latit: float, long: float):
     conn.commit()
 
 
-
 @ensure_connection
 def get_geoposition(conn, user_id: int):
     print(user_id, ' - вызвал get_geoposition')
@@ -143,6 +139,12 @@ def get_geoposition(conn, user_id: int):
 #     longitude = c.fetchone()[0]
 #     return latitude, longitude
 
+@ensure_connection
+def count_users(conn):
+    c = conn.cursor()
+    c.execute(f'SELECT COUNT(*) FROM bot_users')
+    users = c.fetchone()[0]
+    return users
 
 if __name__ == '__main__':
     init_db(force=False)
