@@ -87,6 +87,7 @@ def set_time_notify_in_db(callback_query, time):
     time_notify = time
     db.set_time_notify(user_id=callback_query.from_user.id, time=time_notify)
 
+
 def set_time_notify_in_db_text_message_user(user_id, time):
     time_notify = time
     db.set_time_notify(user_id=user_id, time=time_notify)
