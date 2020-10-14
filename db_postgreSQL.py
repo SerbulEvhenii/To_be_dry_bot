@@ -123,9 +123,9 @@ def set_geoposition(conn, user_id: int, latit: float, long: float):
 @ensure_connection
 def get_geoposition(conn, user_id: int):
     c = conn.cursor()
-    c.execute('SELECT latitude FROM bot_users WHERE user_id=%s;', (user_id))
+    c.execute('SELECT latitude FROM bot_users WHERE user_id=%s;', [user_id])
     latitude = c.fetchone()[0]
-    c.execute(f'SELECT longitude FROM bot_users WHERE user_id=%s;', (user_id))
+    c.execute(f'SELECT longitude FROM bot_users WHERE user_id=%s;', [user_id])
     longitude = c.fetchone()[0]
     return latitude, longitude
 
