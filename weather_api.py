@@ -1,10 +1,8 @@
-import os
 import requests
 import json
 import emoji
-import datetime
 
-import db
+import db_postgreSQL as db
 
 API_KEY = 'a4d2b023b22c75b54f2b88fb96430925'
 USER_LATITUDE = 50.479211
