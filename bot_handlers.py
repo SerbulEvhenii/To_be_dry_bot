@@ -238,6 +238,7 @@ def runBotServerFlask():  # инициализация БД и запуск бо
     print('База данных инициализированна...')
     db.init_db()
     print('Сервер запущен...')
+    bot.set_webhook(url=URL + config.TOKEN)
     app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
 
 #
@@ -259,7 +260,7 @@ def runSchedulers():
 
 
 
-#
+# дом
 # if __name__ == '__main__':
 #     t1 = threading.Thread(target=runBotHome)
 #     t2 = threading.Thread(target=runSchedulers)
@@ -271,6 +272,7 @@ def runSchedulers():
 #     print('База данных инициализированна...')
 #     app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
 
+# Heroku
 if __name__ == '__main__':
     t1 = threading.Thread(target=runBotServerFlask)
     t2 = threading.Thread(target=runSchedulers)
