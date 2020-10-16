@@ -11,6 +11,7 @@ import emoji  # Импортируем смайлы http://www.unicode.org/emoji
 from flask import Flask, request, abort, jsonify, Response
 from telebot import types, TeleBot
 import config
+import geo_position
 
 
 URL = 'https://bot-to-be-dry.herokuapp.com/'
@@ -176,6 +177,7 @@ def location(message):
                                           "погоду для твоего города.",
                                           reply_markup=markups.markup_main)
         db.set_geoposition(user_id=message.chat.id, latit=message.location.latitude, long=message.location.longitude)
+        geo_position.set_city_geopy(user_id=message.chat.id, latit=message.location.latitude, long=message.location.longitude)
 
 
 @bot.message_handler(content_types=['text'])
@@ -193,13 +195,6 @@ def handle_text(message):
         bot.send_message(message.chat.id, weather_api.show_current_daily_weather(message.chat.id))
     elif 'главное меню' in text:
         bot.send_message(message.chat.id, 'Главное меню', reply_markup=markups.markup_main)
-    elif 'выбор времени уведомлений' in text:
-        msg = bot.send_message(message.chat.id, 'Введите время на которое вы хотите поставить уведомление? Например: 07:00')
-        bot.register_next_step_handler(msg, time_user)
-    #     bot.send_message(message.chat.id, 'Введите время на которое вы хотите поставить уведомление? Например: 07:00')
-    #     msg = bot.reply_to(message, 'Введите время на которое вы хотите поставить уведомление? Например: 07:00')
-    #     bot.register_next_step_handler(msg, set_time_notify_in_db_text_message(time=message.text))
-    #     set_time_notify_in_db_text_message(message_2.chat.id, time=message_2.text)
     elif 'как дела?' in text:
         bot.send_message(message.chat.id, 'Отлично. А твои как?')
     elif 'помощь' in text:

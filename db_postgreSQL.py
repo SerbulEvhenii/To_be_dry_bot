@@ -40,6 +40,7 @@ def init_db(conn, force: bool = False):
             latitude         REAL NOT NULL DEFAULT 50.479211,
             longitude        REAL NOT NULL DEFAULT 30.434911,
             time_notify      TEXT
+            city             CHARACTER VARYING(50) NOT NULL DEFAULT 'Киев, Украина';
         )
     ''')
 
@@ -130,6 +131,18 @@ def get_geoposition(conn, user_id: int):
     print(longitude)
     return latitude, longitude
 
+@ensure_connection
+def set_city_user_db(conn, user_id: int, geopy_city):
+    c = conn.cursor()
+    c.execute('UPDATE bot_users SET city=%s WHERE user_id=%s;', (geopy_city, user_id))
+    conn.commit()
+
+@ensure_connection
+def get_city_user_db(conn, user_id: int):
+    c = conn.cursor()
+    c.execute('SELECT city FROM bot_users WHERE user_id=%s;', [user_id])
+    return c.fetchone()[0]
+
 
 # @ensure_connection
 # def get_geoposition(conn, user_id: int):
@@ -146,6 +159,8 @@ def count_users(conn):
     c.execute(f'SELECT COUNT(*) FROM bot_users')
     users = c.fetchone()[0]
     return users
+
+
 
 if __name__ == '__main__':
     init_db(force=False)
