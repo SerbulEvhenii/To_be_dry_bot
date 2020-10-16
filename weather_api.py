@@ -45,6 +45,7 @@ def show_current_weather(user_id):
 
 
 def show_current_daily_weather(user_id):
+    get_weather(user_id)
     city = db.get_city_user_db(user_id=user_id)
     temp_min = round((read_json())['daily'][0]['temp']['min'], 0)  # [0] - сегодня, 1 - завтра
     temp_max = round((read_json())['daily'][0]['temp']['max'], 0)  # [0] - сегодня, 1 - завтра
