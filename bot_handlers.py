@@ -134,13 +134,11 @@ def set_time_notify_menu(callback_query: telebot.types.CallbackQuery):
 
 
 def get_geo_position(callback_query):
-    city = weather_api.get_geo_city(callback_query.from_user.id)
     keyboard = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
     button_geo = types.KeyboardButton(text=emoji.emojize(":compass: Отправить местоположение"), request_location=True)
     button_main_menu = types.KeyboardButton(text=emoji.emojize(":gear: Главное меню"))
     keyboard.add(button_geo, button_main_menu)
-    bot.send_message(callback_query.from_user.id, emoji.emojize(f":house: Ваше местоположение определено как: {city}.\n"
-                                                  f"⁉ Чтобы я мог запомнить для какого города "
+    bot.send_message(callback_query.from_user.id, emoji.emojize(f"⁉ Чтобы я мог запомнить для какого города "
                                                   f"показывать тебе погоду, передай мне пожалуйста свое местоположение "
                                                   f"один раз и я запомню. Перед тем как нажать кнопку ниже "
                                                   f"'Отправить местоположение' включи в настройках своего телефона "
