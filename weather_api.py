@@ -65,6 +65,7 @@ def show_current_daily_weather(user_id):
                          f':cloud_with_rain: вероятность осадков: {pop}%')
 
 
+
 def show_tomorrow_weather(user_id):
     city = db.get_city_user_db(user_id=user_id)
     temp_min = round((read_json())['daily'][1]['temp']['min'], 0)  # [1] - сегодня, 2 - завтра
