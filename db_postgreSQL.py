@@ -39,8 +39,8 @@ def init_db(conn, force: bool = False):
             subscribe        INTEGER NOT NULL DEFAULT 0,
             latitude         REAL NOT NULL DEFAULT 50.479211,
             longitude        REAL NOT NULL DEFAULT 30.434911,
-            time_notify      TEXT
-            city             CHARACTER VARYING(50) NOT NULL DEFAULT 'Киев, Украина';
+            time_notify      TEXT,
+            city             CHARACTER VARYING(50) NOT NULL DEFAULT 'Киев, Украина'
         )
     ''')
 
