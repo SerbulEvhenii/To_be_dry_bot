@@ -45,7 +45,7 @@ def show_current_weather(user_id):
 
 
 def show_current_daily_weather(user_id):
-    city = db.get_city_user_db(user_id)
+    city = db.get_city_user_db(user_id=user_id)
     temp_min = round((read_json())['daily'][0]['temp']['min'], 0)  # [0] - сегодня, 1 - завтра
     temp_max = round((read_json())['daily'][0]['temp']['max'], 0)  # [0] - сегодня, 1 - завтра
     feel_temp_morn = round((read_json())['daily'][0]['feels_like']['morn'], 0)
@@ -65,7 +65,7 @@ def show_current_daily_weather(user_id):
 
 
 def show_tomorrow_weather(user_id):
-    city = db.get_city_user_db(user_id)
+    city = db.get_city_user_db(user_id=user_id)
     temp_min = round((read_json())['daily'][1]['temp']['min'], 0)  # [1] - сегодня, 2 - завтра
     temp_max = round((read_json())['daily'][1]['temp']['max'], 0)  # [1] - сегодня, 2 - завтра
     pop = int((read_json())['daily'][1]['pop'] * 100)  # Вероятность осадков % (Precipitation)

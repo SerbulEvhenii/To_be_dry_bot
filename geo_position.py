@@ -7,13 +7,3 @@ def set_city_geopy(user_id, latit, long):
     loc_dict = location.raw
     city = loc_dict['address']['city'] + ', ' + loc_dict['address']['country']
     set_city_user_db(user_id=user_id, geopy_city=city)
-
-
-
-
-if __name__ == '__main__':
-    print(city)
-    print(loc_dict['address']['country'])
-    print(loc_dict['address']['city'])
-    print(location.address)
-
