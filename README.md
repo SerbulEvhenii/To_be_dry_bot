@@ -6,8 +6,9 @@
 **[Ссылка на бота](https://t.me/toBeDryBot?start)**
 ## Использованные решения:
 - База данных - [PostgreSQL](https://www.postgresql.org/)
-- API [OpenWeatherMap](https://openweathermap.org/api)
+- API погода - [OpenWeatherMap](https://openweathermap.org/api)
 - API Telegram - [pyTelegramBotAPI](https://github.com/eternnoir/pyTelegramBotAPI)
-- [Emoji](https://github.com/carpedm20/emoji/)
+- Смайлы - [Emoji](https://github.com/carpedm20/emoji/)
 - WebHook
-- [Flask](https://flask.palletsprojects.com/en/1.1.x/) 
+- Web сервер - [Flask](https://flask.palletsprojects.com/en/1.1.x/) 
+- Уведомления - [apscheduler](https://github.com/agronholm/apscheduler/tree/028506a816c74ee05951717c0e45d2e6ad32773e) 
