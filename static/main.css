@@ -1,0 +1,35 @@
+* {
+    font-family: 'Roboto Light', sans-serif;
+}
+
+body {
+    background: #355C7D;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #C06C84, #6C5B7B, #355C7D);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #C06C84, #6C5B7B, #355C7D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    color: white;
+
+}
+#login, #password {
+    display: block;
+    border: none;
+    background: rgba(255, 255, 255, .5);
+    border-radius: 10px;
+    padding: 20px;
+    color: black;
+    outline: none;
+    width: 60%;
+    font-size: 30px;
+}
+
+#enter {
+    display: block;
+    border: none;
+    background: rgba(255, 255, 255, .5);
+    border-radius: 10px;
+    padding: 20px;
+    color: black;
+    outline: none;
+    width: 60%;
+    font-size: 30px;
+}

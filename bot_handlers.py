@@ -12,6 +12,8 @@ from flask import Flask, request, abort, jsonify, Response
 from telebot import types, TeleBot
 import config
 import geo_position
+from flask import send_from_directory
+from flask import render_template
 
 
 URL = 'https://bot-to-be-dry.herokuapp.com/'
@@ -21,7 +23,15 @@ app = Flask(__name__)                               # Создание серв�
 
 @app.route('/')
 def index():
-    return '<h1>Telegram BOT - To be dry. Погодный бот by Serbul Evhenii</h1>', 200
+    return render_template('main.html'), 200
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'static/favicon.ico')
+
+@app.route('/tobedry_logo.jpg')
+def logo():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'static/tobedry_logo.jpg')
 
 @app.route("/wakemydyno.txt")    # http://wakemydyno.com/ - не даем заснуть dyno
 def get_text():
