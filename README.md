@@ -1,5 +1,5 @@
 # To Be Dry - Telegram BOT
-**Телеграм бот с оповещением о дожде в течении дня**
+**Телеграм бот с оповещением о погоде на целый день в твоем городе**
 
 ![Image Logo](https://github.com/SerbulEvhenii/To_be_dry_bot/blob/master/tobedry_logo.jpg)
 
