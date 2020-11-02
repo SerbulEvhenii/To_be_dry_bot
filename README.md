@@ -1,9 +1,12 @@
 # To Be Dry - Telegram BOT
-**Телеграм бот с оповещением о дожде в течении дня**
+**Телеграм бот с оповещением о погоде на целый день в твоем городе**
 
 ![Image Logo](https://github.com/SerbulEvhenii/To_be_dry_bot/blob/master/tobedry_logo.jpg)
 
 **[Ссылка на бота](https://t.me/toBeDryBot?start)**
+
+**[Web сайт бота](https://bot-to-be-dry.herokuapp.com/)**
+
 ## Использованные решения:
 - База данных - [PostgreSQL](https://www.postgresql.org/)
 - API погода - [OpenWeatherMap](https://openweathermap.org/api)
