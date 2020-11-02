@@ -4,6 +4,7 @@
 ![Image Logo](https://github.com/SerbulEvhenii/To_be_dry_bot/blob/master/tobedry_logo.jpg)
 
 **[Ссылка на бота](https://t.me/toBeDryBot?start)**
+
 **[Web сайт бота](https://bot-to-be-dry.herokuapp.com/)**
 
 ## Использованные решения:
