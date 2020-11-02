@@ -1,6 +1,5 @@
-TOKEN = '1179933255:AAHDd5ZeR9FgnVEp02sVwHyUIuKU34VNZsk'
-bot_user_name = "bot username"
-URL = "HEROKU"
+# TOKEN = '1179933255:AAHDd5ZeR9FgnVEp02sVwHyUIuKU34VNZsk'
+
 
 # https://api.telegram.org/bot1179933255:AAHDd5ZeR9FgnVEp02sVwHyUIuKU34VNZsk/getWebhookInfo
 

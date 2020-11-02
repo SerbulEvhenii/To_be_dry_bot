@@ -1,3 +1,4 @@
+# файл отвечает за распознование местоположения (в БД передает название города)
 from geopy.geocoders import Nominatim
 from db_postgreSQL import set_city_user_db
 

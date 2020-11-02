@@ -1,3 +1,4 @@
+# файл отвечает за разметку кнопок меню
 import telebot
 import emoji # Импортируем смайлы http://www.unicode.org/emoji/charts/full-emoji-list.html
 

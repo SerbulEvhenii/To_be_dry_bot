@@ -1,23 +1,23 @@
+# основной файл с логикой бота
 import datetime
 import threading
 import os
 import bot_schedule
-import db_postgreSQL as db  # Импортируем все методы из файла для базы данных
-import weather_api  # Импортируем все методы из файла для погоды
-import telebot.types  # Импортируем типы телеграма API
-import markups  # Импортируем кнопки для бота
-import inlineKeyboard  # Импортируем инлайн кавиатуры
-import emoji  # Импортируем смайлы http://www.unicode.org/emoji/charts/full-emoji-list.html
-from flask import Flask, request, abort, jsonify, Response
+import db_postgreSQL as db                # Импортируем все методы из файла для базы данных
+import weather_api                        # Импортируем все методы из файла для погоды
+import telebot.types                      # Импортируем типы телеграма API
+import markups                            # Импортируем кнопки для бота
+import inlineKeyboard                     # Импортируем инлайн кавиатуры
+import emoji                              # Импортируем смайлы http://www.unicode.org/emoji/charts/full-emoji-list.html
+from flask import Flask, request, Response
 from telebot import types, TeleBot
-import config
 import geo_position
 from flask import send_from_directory
 from flask import render_template
 
-
+TOKEN = os.environ['TOKEN']
 URL = 'https://bot-to-be-dry.herokuapp.com/'
-bot = TeleBot(config.TOKEN, threaded=False)         # Создание бота
+bot = TeleBot(TOKEN, threaded=False)         # Создание бота
 app = Flask(__name__)                               # Создание сервера
 
 
@@ -39,12 +39,9 @@ def get_text():
     return Response(content, mimetype="text/plain")
 
 
-@app.route('/' + config.TOKEN, methods=["POST"])
+@app.route('/' + TOKEN, methods=["POST"])
 def webhook():
     bot.process_new_updates([types.Update.de_json(request.stream.read().decode("utf-8"))])
-    # json_string = request.stream.read().decode('utf-8')
-    # update = types.Update.de_json(json.load(json_string), bot)
-    # bot.process_new_updates(update)
     return "ok", 200
 
 
@@ -231,7 +228,7 @@ def runBotServerFlask():  # инициализация БД и запуск бо
     print('База данных инициализированна...')
     db.init_db()
     print('Сервер запущен...')
-    bot.set_webhook(url=URL + config.TOKEN)
+    bot.set_webhook(url=URL + TOKEN)
     app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
 
 

@@ -1,3 +1,4 @@
+# этот файл отвечает за расписание проверки уведомления
 from apscheduler.schedulers.background import BlockingScheduler
 import bot_handlers
 

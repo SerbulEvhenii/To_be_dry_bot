@@ -1,3 +1,4 @@
+# в этом файле описана вся логика работы с API погоды
 import requests
 import json
 import emoji
@@ -11,18 +12,6 @@ USER_LONGITUDE = 30.434911
 URL_WEATHER = f'https://api.openweathermap.org/data/2.5/onecall?lat={USER_LATITUDE}&lon={USER_LONGITUDE}' \
               f'&exclude=minutely,hourly,&appid={API_KEY}&lang=ru&units=metric'
 
-# ПРОВЕРКА ПОГОДЫ С ПРОВЕРКОЙ 10МИН
-# def get_weather():
-#     date_now = datetime.datetime.now()
-#     if not os.path.exists('weather.json'):  # если файл отсутствует, то нужно его создать
-#         save_json()
-#     last_save_file = datetime.datetime.fromtimestamp(os.path.getmtime('weather.json')) + datetime.timedelta(minutes=10)
-#     if os.path.exists('weather.json'):
-#         if last_save_file > date_now:  # если после сохранения прошло < 10мин, прочти файл
-#             return read_json()
-#         if last_save_file < date_now:  # если после сохранения прошло > 10мин, сохрани заново, и прочти файл
-#             save_json()
-#             return read_json()
 
 def get_URL_WEATHER(user_id):
     user_latitude, user_longitude = db.get_geoposition(user_id=user_id)
@@ -58,11 +47,11 @@ def show_current_daily_weather(user_id):
     return emoji.emojize(f'Погода на сегодня ({date_api_str}):\n'
                          f':world_map: {city}\n'
                          f':sun_behind_cloud: температура воздуха:\n'
-                         f'• мин. +{temp_min} макс. +{temp_max}\n'
+                         f'• мин. {temp_min} макс. {temp_max}\n'
                          f'Ощущается:\n'
-                         f'• утром +{feel_temp_morn}\n'
-                         f'• в обед +{feel_temp_day}\n'
-                         f'• вечером +{feel_temp_eve}\n'
+                         f'• утром {feel_temp_morn}\n'
+                         f'• в обед {feel_temp_day}\n'
+                         f'• вечером {feel_temp_eve}\n'
                          f':cloud_with_rain: вероятность осадков: {pop}%')
 
 
@@ -76,7 +65,7 @@ def show_tomorrow_weather(user_id):
     return emoji.emojize(f'Погода на завтра ({date_api_str}):\n'
                          f':world_map: {city}\n'
                          f'• :sun_behind_cloud: температура воздуха:\n'
-                         f'мин. +{temp_min} макс. +{temp_max}\n'
+                         f'мин. {temp_min} макс. {temp_max}\n'
                          f'• :cloud_with_rain: вероятность осадков: {pop}%')
 
 
@@ -92,6 +81,3 @@ def read_json():
     with open('weather.json', 'r') as f:
         return json.load(f)
 
-
-if __name__ == '__main__':
-    pass
