@@ -17,7 +17,7 @@ from flask import render_template
 
 TOKEN = os.environ['TOKEN']
 URL = 'https://bot-to-be-dry.herokuapp.com/'
-bot = TeleBot(TOKEN, threaded=False)         # Создание бота
+bot = TeleBot(TOKEN, threaded=False)                # Создание бота
 app = Flask(__name__)                               # Создание сервера
 
 
