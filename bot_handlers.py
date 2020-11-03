@@ -15,6 +15,7 @@ import geo_position
 from flask import send_from_directory
 from flask import render_template
 
+
 TOKEN = os.environ['TOKEN']
 URL = 'https://bot-to-be-dry.herokuapp.com/'
 bot = TeleBot(TOKEN, threaded=False)                # Создание бота
