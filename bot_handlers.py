@@ -158,11 +158,8 @@ def set_time_notify_menu(callback_query: telebot.types.CallbackQuery):
                                'Введите время на которое вы хотите поставить уведомление? Например: 07:00')
         bot.register_next_step_handler(msg, time_user)
         # проверить время на валидность
-        if bot_schedule.check_valid_time(msg):
-            bot.register_next_step_handler(msg, time_user)
-        else:
-            bot.send_message(callback_query.from_user.id, 'Вы неверно ввели время, нажмите кнопку "Ввести вручную" еще раз'
-                                                          'и попробуйте снова.', reply_markup=markups.markup_main)
+        bot.register_next_step_handler(msg, time_user)
+
     else:
         for time in inlineKeyboard.btn_tuple_data:
             if callback_query.data == time:
@@ -174,8 +171,12 @@ def set_time_notify_menu(callback_query: telebot.types.CallbackQuery):
 def time_user(message):
     id = message.chat.id
     text = message.text
-    set_time_notify_in_db_text_message_user(id, text)
-    bot.send_message(id, f'Время уведомления установлено на {text}.')
+    if bot_schedule.check_valid_time(text):
+        set_time_notify_in_db_text_message_user(id, text)
+        bot.send_message(id, f'Время уведомления установлено на {text}.')
+    else:
+        bot.send_message(id, 'Вы неверно ввели время, нажмите кнопку "Ввести вручную" еще раз'
+                                                      'и попробуйте снова.', reply_markup=markups.markup_main)
 
 
 @bot.message_handler(content_types=["location"])
