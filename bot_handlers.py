@@ -123,15 +123,17 @@ def start_menu_all_times(callback_query):
 
 
 # Реакция нажатия на кнопки из меню: "Настройки бота"
-@bot.callback_query_handler(func=lambda c: c.data and c.data.startswith('menu'))
+@bot.callback_query_handler(func=lambda c: c.data and c.data == 'menu_btn_geo')
 def set_time_notify_menu(callback_query: telebot.types.CallbackQuery):
-    if callback_query.data == 'menu_btn_geo':
-        bot.answer_callback_query(callback_query.id)
-        bot.send_message(callback_query.from_user.id, 'Настройка местоположения:')
-        get_geo_position(callback_query)
-    elif callback_query.data == 'menu_btn_notify':
-        bot.answer_callback_query(callback_query.id)
-        start_menu_all_times(callback_query)
+    bot.answer_callback_query(callback_query.id)
+    bot.send_message(callback_query.from_user.id, 'Настройка местоположения:')
+    get_geo_position(callback_query)
+
+
+@bot.callback_query_handler(func=lambda c: c.data and c.data == 'menu_btn_notify')
+def set_time_notify_menu(callback_query: telebot.types.CallbackQuery):
+    bot.answer_callback_query(callback_query.id)
+    start_menu_all_times(callback_query)
 
 
 def get_geo_position(callback_query):
@@ -241,14 +243,6 @@ def runBotServerFlask():  # инициализация БД и запуск бо
     print('Сервер запущен...')
     bot.set_webhook(url=URL + TOKEN)
     app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
-
-
-def runBotHome():
-    bot.remove_webhook()
-    db.init_db()
-    print('База данных инициализированна...')
-    print('Бот запущен...')
-    bot.polling(none_stop=True)
 
 
 def runSchedulers():

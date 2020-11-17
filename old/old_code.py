@@ -13,6 +13,34 @@
 
 
 
+# # Реакция нажатия на кнопки из меню: "Настройки бота"
+# @bot.callback_query_handler(func=lambda c: c.data and c.data.startswith('menu'))
+# def set_time_notify_menu(callback_query: telebot.types.CallbackQuery):
+#     if callback_query.data == 'menu_btn_geo':
+#         bot.answer_callback_query(callback_query.id)
+#         bot.send_message(callback_query.from_user.id, 'Настройка местоположения:')
+#         get_geo_position(callback_query)
+#     elif callback_query.data == 'menu_btn_notify':
+#         bot.answer_callback_query(callback_query.id)
+#         start_menu_all_times(callback_query)
+
+
+
+
+
+
+
+
+# def runBotHome():
+#     bot.remove_webhook()
+#     db.init_db()
+#     print('База данных инициализированна...')
+#     print('Бот запущен...')
+#     bot.polling(none_stop=True)
+
+
+
+
 # https://api.telegram.org/bot1179933255:AAHDd5ZeR9FgnVEp02sVwHyUIuKU34VNZsk/getWebhookInfo
 
 # https://api.telegram.org/bot1179933255:AAHDd5ZeR9FgnVEp02sVwHyUIuKU34VNZsk/deleteWebhook
