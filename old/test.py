@@ -1,26 +1,38 @@
-import telebot
+import re
 
-TOKEN = '1177989498:AAFm8PVPsdSk_ybHQzSI7rSifwQIUSRzD5A'
-
-bot = telebot.TeleBot(TOKEN)
-
-@bot.message_handler(commands=['start', 'help'])
-def send_welcome(message):
-	bot.reply_to(message, "Howdy, how are you doing?")
-	print(message)
+alarm = "01:09"
+valid = '(\d{2}):(\d{2})'
 
 
-@bot.message_handler(commands=['login'])
-def login(message):
-	bot.reply_to(message, "Howdy, how are you doing?")
-	print(message)
-	print(message.text)
+def check_valid_time(validation, t):
+#     if re.match(validation, t): # проверка на колличество введенных цифр между символом :
+#         print('ok')
+#         find_time = re.findall(validation, t)
+#         print(find_time)
+#         print(find_time[0][0])
+#         print(find_time[0][1])
+#         first_part, second_part = find_time[0][0], find_time[0][1]
+#         if int(first_part) <= 23 and int(second_part) <= 59: # проверка отдельных частей на верность ввода
+#             print('ok, ok!')
+#         else:
+#             print('Baaad!')
+#     else:
+#         print('Baaad!')
 
 
-@bot.message_handler(func=lambda message: True)
-def echo_all(message):
-	bot.reply_to(message, message.text)
+    if re.match(validation, t):  # проверка на колличество введенных цифр между символом :
+        find_time = re.findall(validation, t)
+        first_part, second_part = find_time[0][0], find_time[0][1]
+        if int(first_part) <= 23 and int(second_part) <= 59:  # проверка отдельных частей на верность ввода
+            return True
+        else:
+            return False
+    else:
+        return False
+
 
 if __name__ == '__main__':
-
-    bot.polling()
+    if check_valid_time(valid, alarm):
+        print('True')
+    else:
+        print('False')
