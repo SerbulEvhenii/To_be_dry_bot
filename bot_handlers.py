@@ -172,7 +172,7 @@ def time_user(message):
         set_time_notify_in_db_text_message_user(id, text)
         bot.send_message(id, f'Время уведомления установлено на {text}.')
     else:
-        bot.send_message(id, 'Вы неверно ввели время, нажмите кнопку "Ввести вручную" еще раз'
+        bot.send_message(id, 'Вы неверно ввели время, нажмите кнопку "Ввести вручную" еще раз '
                                                       'и попробуйте снова.', reply_markup=markups.markup_main)
 
 
