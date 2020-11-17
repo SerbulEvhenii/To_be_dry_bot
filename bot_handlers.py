@@ -157,9 +157,6 @@ def set_time_notify_menu(callback_query: telebot.types.CallbackQuery):
         msg = bot.send_message(callback_query.from_user.id,
                                'Введите время на которое вы хотите поставить уведомление? Например: 07:00')
         bot.register_next_step_handler(msg, time_user)
-        # проверить время на валидность
-        bot.register_next_step_handler(msg, time_user)
-
     else:
         for time in inlineKeyboard.btn_tuple_data:
             if callback_query.data == time:
