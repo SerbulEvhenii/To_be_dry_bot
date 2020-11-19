@@ -1,4 +1,5 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/SerbulEvhenii/To_be_dry_bot/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/SerbulEvhenii/To_be_dry_bot/?branch=master)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/SerbulEvhenii/To_be_dry_bot/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
 # To Be Dry - Telegram BOT
 **Телеграм бот с оповещением о погоде на целый день в твоем городе**
 
