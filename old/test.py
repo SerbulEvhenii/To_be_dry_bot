@@ -1,38 +1,48 @@
-import re
+import datetime
+import threading
+import os
+import bot_schedule
+import db_postgreSQL as db                # Импортируем все методы из файла для базы данных
+import weather_api                        # Импортируем все методы из файла для погоды
+import telebot.types                      # Импортируем типы телеграма API
+import markups                            # Импортируем кнопки для бота
+import inlineKeyboard                     # Импортируем инлайн кавиатуры
+import emoji                              # Импортируем смайлы http://www.unicode.org/emoji/charts/full-emoji-list.html
+from flask import Flask, request, Response
+from telebot import types, TeleBot
+import geo_position
+from flask import send_from_directory
+from flask import render_template
+from geopy.geocoders import Nominatim
+from db_postgreSQL import set_city_user_db
 
-alarm = "01:09"
-valid = '(\d{2}):(\d{2})'
-
-
-def check_valid_time(validation, t):
-#     if re.match(validation, t): # проверка на колличество введенных цифр между символом :
-#         print('ok')
-#         find_time = re.findall(validation, t)
-#         print(find_time)
-#         print(find_time[0][0])
-#         print(find_time[0][1])
-#         first_part, second_part = find_time[0][0], find_time[0][1]
-#         if int(first_part) <= 23 and int(second_part) <= 59: # проверка отдельных частей на верность ввода
-#             print('ok, ok!')
-#         else:
-#             print('Baaad!')
-#     else:
-#         print('Baaad!')
-
-
-    if re.match(validation, t):  # проверка на колличество введенных цифр между символом :
-        find_time = re.findall(validation, t)
-        first_part, second_part = find_time[0][0], find_time[0][1]
-        if int(first_part) <= 23 and int(second_part) <= 59:  # проверка отдельных частей на верность ввода
-            return True
-        else:
-            return False
+def set_city_geopy(user_id, latit, long):
+    geolocator = Nominatim(user_agent="SEA")
+    location = geolocator.reverse(f"{latit}, {long}", language='ru')
+    if location:
+        loc_dict = location.raw
+        city = loc_dict['address']['city'] + ', ' + loc_dict['address']['country']
+        set_city_user_db(user_id=user_id, geopy_city=city)
+        return True
     else:
         return False
 
 
-if __name__ == '__main__':
-    if check_valid_time(valid, alarm):
-        print('True')
-    else:
-        print('False')
+@bot.message_handler(content_types=["location"])
+def location(message):
+    if message.location is not None:
+        if geo_position.set_city_geopy(user_id=message.chat.id, latit=message.location.latitude, long=message.location.longitude):
+            db.set_geoposition(user_id=message.chat.id, latit=message.location.latitude, long=message.location.longitude)
+            geo_position.set_city_geopy(user_id=message.chat.id, latit=message.location.latitude, long=message.location.longitude)
+            bot.send_message(message.chat.id, "Отлично! Я запомнил в каком городе ты находишься. Теперь я буду показывать "
+                                              "погоду для твоего города.",
+                                              reply_markup=markups.markup_main)
+        else:
+            bot.send_message(message.chat.id,
+                             emoji.emojize(":pensive face: Извините, сервис определения местоположения временно "
+                                           "недоступен, попробуйте еще раз немного позже."),
+                             reply_markup=markups.markup_main)
+
+
+
+

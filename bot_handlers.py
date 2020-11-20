@@ -14,7 +14,7 @@ from telebot import types, TeleBot
 import geo_position
 from flask import send_from_directory
 from flask import render_template
-import re
+
 
 
 TOKEN = os.environ['TOKEN']
@@ -179,11 +179,17 @@ def time_user(message):
 @bot.message_handler(content_types=["location"])
 def location(message):
     if message.location is not None:
-        bot.send_message(message.chat.id, "Отлично! Я запомнил в каком городе ты находишься. Теперь я буду показывать "
-                                          "погоду для твоего города.",
-                                          reply_markup=markups.markup_main)
-        db.set_geoposition(user_id=message.chat.id, latit=message.location.latitude, long=message.location.longitude)
-        geo_position.set_city_geopy(user_id=message.chat.id, latit=message.location.latitude, long=message.location.longitude)
+        if geo_position.set_city_geopy(user_id=message.chat.id, latit=message.location.latitude, long=message.location.longitude):
+            db.set_geoposition(user_id=message.chat.id, latit=message.location.latitude, long=message.location.longitude)
+            geo_position.set_city_geopy(user_id=message.chat.id, latit=message.location.latitude, long=message.location.longitude)
+            bot.send_message(message.chat.id, "Отлично! Я запомнил в каком городе ты находишься. Теперь я буду показывать "
+                                              "погоду для твоего города.",
+                                              reply_markup=markups.markup_main)
+        else:
+            bot.send_message(message.chat.id,
+                             emoji.emojize(":pensive face: Извините, сервис определения местоположения временно "
+                                           "недоступен, попробуйте еще раз немного позже."),
+                             reply_markup=markups.markup_main)
 
 
 @bot.message_handler(content_types=['text'])
