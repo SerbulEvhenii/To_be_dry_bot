@@ -11,7 +11,7 @@ from db_postgreSQL import set_city_user_db
 
 def set_city_geopy(user_id, latit, long):
     geolocator = Nominatim(user_agent="SEA")
-    location = geolocator.reverse(f"{latit}, {long}", language='ru')
+    location = False
     if location:
         loc_dict = location.raw
         city = loc_dict['address']['city'] + ', ' + loc_dict['address']['country']
