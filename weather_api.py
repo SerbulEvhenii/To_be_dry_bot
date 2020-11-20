@@ -3,7 +3,6 @@ import requests
 import json
 import emoji
 import datetime
-
 import db_postgreSQL as db
 
 API_KEY = 'a4d2b023b22c75b54f2b88fb96430925'
@@ -13,27 +12,24 @@ URL_WEATHER = f'https://api.openweathermap.org/data/2.5/onecall?lat={USER_LATITU
               f'&exclude=minutely,hourly,&appid={API_KEY}&lang=ru&units=metric'
 
 
-def get_URL_WEATHER(user_id):
+def get_URL_WEATHER(user_id: int) -> str:  # принимает id пользователя, возвращает URL запрос для этого города
     user_latitude, user_longitude = db.get_geoposition(user_id=user_id)
     URL_WEATHER = f'https://api.openweathermap.org/data/2.5/onecall?lat={user_latitude}&lon={user_longitude}' \
                   f'&exclude=minutely,hourly,&appid={API_KEY}&lang=ru&units=metric'
     return URL_WEATHER
 
-def get_weather(user_id):
+
+def get_weather(user_id: int):
     save_json(user_id)
     return read_json()
 
-def get_geo_city(user_id):
-    city = (get_weather(user_id))['timezone']
-    return city
 
-
-def show_current_weather(user_id):
+def show_current_weather(user_id: int) -> str:  # принимает id пользователя и возвращает погоду на данный момент в городе
     temp = round((get_weather(user_id))['current']['temp'], 0)
     return f'Сейчас в Киеве температура воздуха: {temp}.'
 
 
-def show_current_daily_weather(user_id):
+def show_current_daily_weather(user_id: int) -> str:  # принимает id пользователя и возвращает прогноз погоды на сегодня (весь день)
     get_weather(user_id)
     city = db.get_city_user_db(user_id=user_id)
     temp_min = round((read_json())['daily'][0]['temp']['min'], 0)  # [0] - сегодня, 1 - завтра
@@ -55,7 +51,7 @@ def show_current_daily_weather(user_id):
                          f':cloud_with_rain: вероятность осадков: {pop}%')
 
 
-def show_tomorrow_weather(user_id):
+def show_tomorrow_weather(user_id: int) -> str:  # принимает id пользователя и возвращает прогноз погоды на завтра
     city = db.get_city_user_db(user_id=user_id)
     temp_min = round((read_json())['daily'][1]['temp']['min'], 0)  # [1] - сегодня, 2 - завтра
     temp_max = round((read_json())['daily'][1]['temp']['max'], 0)  # [1] - сегодня, 2 - завтра
@@ -69,7 +65,7 @@ def show_tomorrow_weather(user_id):
                          f'• :cloud_with_rain: вероятность осадков: {pop}%')
 
 
-def save_json(user_id, filename='weather.json'):
+def save_json(user_id: int, filename='weather.json'):  # принимает id пользователя и сохраняет json файл с погодой
     url_weather_user = get_URL_WEATHER(user_id)
     r = requests.get(url_weather_user)
     r_json = r.json()
@@ -77,7 +73,6 @@ def save_json(user_id, filename='weather.json'):
         json.dump(r_json, f, indent=2, ensure_ascii=False)
 
 
-def read_json():
+def read_json():  # открывает и читает данные из файла с погодой
     with open('weather.json', 'r') as f:
         return json.load(f)
-

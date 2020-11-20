@@ -4,6 +4,7 @@ import os
 
 DATABASE_URL = os.environ['DATABASE_URL']
 
+
 def ensure_connection(func):
     """ Декоратор для подключения к СУБД: открывает соединение,
         выполняет переданную функцию и закрывает за собой соединение.
@@ -58,7 +59,8 @@ def add_user_in_db(conn, user_id: int, user_name: str):
 @ensure_connection
 def check_in_db(conn, column, data_check):
     c = conn.cursor()
-    c.execute(f'SELECT {column} FROM bot_users WHERE {column}={data_check}')
+    # c.execute(f'SELECT {column} FROM bot_users WHERE {column}={data_check}')
+    c.execute('SELECT %s FROM bot_users WHERE %s = %s', (column, column, data_check))
     return c.fetchone()
     # if c.fetchone():
     #     return True
@@ -69,14 +71,16 @@ def check_in_db(conn, column, data_check):
 @ensure_connection
 def subscribe_db(conn, user_id: int):
     c = conn.cursor()
-    c.execute(f'UPDATE bot_users SET subscribe=1 WHERE user_id = {user_id}')
+    # c.execute(f'UPDATE bot_users SET subscribe=1 WHERE user_id = {user_id}')
+    c.execute('UPDATE bot_users SET subscribe=1 WHERE user_id = %s', [user_id])
     conn.commit()
 
 
 @ensure_connection
 def check_subscribe_db(conn, user_id: int):
     c = conn.cursor()
-    c.execute(f'SELECT subscribe FROM bot_users WHERE user_id={user_id}')
+    # c.execute(f'SELECT subscribe FROM bot_users WHERE user_id={user_id}')
+    c.execute('SELECT subscribe FROM bot_users WHERE user_id= %s', [user_id])
     if c.fetchone()[0]:
         return True
     else:
@@ -86,7 +90,8 @@ def check_subscribe_db(conn, user_id: int):
 @ensure_connection
 def unsubscribe_db(conn, user_id: int):
     c = conn.cursor()
-    c.execute(f'UPDATE bot_users SET subscribe=0 WHERE user_id = {user_id}')
+    # c.execute(f'UPDATE bot_users SET subscribe=0 WHERE user_id = {user_id}')
+    c.execute('UPDATE bot_users SET subscribe=0 WHERE user_id = %s', [user_id])
     conn.commit()
 
 
@@ -100,7 +105,7 @@ def set_time_notify(conn, user_id: int, time: str):
 @ensure_connection
 def list_id_users_in_db(conn):
     c = conn.cursor()
-    c.execute(f'SELECT * FROM bot_users')
+    c.execute('SELECT * FROM bot_users')
     return c.fetchall()
 
 
@@ -114,8 +119,10 @@ def get_time_notify_user_db(conn, user_id: int):
 @ensure_connection
 def set_geoposition(conn, user_id: int, latit: float, long: float):
     c = conn.cursor()
-    c.execute(f'UPDATE bot_users SET latitude={latit} WHERE user_id = {user_id}')
-    c.execute(f'UPDATE bot_users SET longitude={long} WHERE user_id = {user_id}')
+    # c.execute(f'UPDATE bot_users SET latitude={latit} WHERE user_id = {user_id}')
+    # c.execute(f'UPDATE bot_users SET longitude={long} WHERE user_id = {user_id}')
+    c.execute('UPDATE bot_users SET latitude=%s WHERE user_id = %s', (latit, user_id))
+    c.execute('UPDATE bot_users SET longitude=%s WHERE user_id = %s', (long, user_id))
     conn.commit()
 
 
@@ -131,11 +138,13 @@ def get_geoposition(conn, user_id: int):
     print(longitude)
     return latitude, longitude
 
+
 @ensure_connection
 def set_city_user_db(conn, user_id: int, geopy_city):
     c = conn.cursor()
     c.execute('UPDATE bot_users SET city=%s WHERE user_id=%s;', (geopy_city, user_id))
     conn.commit()
+
 
 @ensure_connection
 def get_city_user_db(conn, user_id: int):
@@ -144,23 +153,9 @@ def get_city_user_db(conn, user_id: int):
     return c.fetchone()[0]
 
 
-# @ensure_connection
-# def get_geoposition(conn, user_id: int):
-#     c = conn.cursor()
-#     c.execute(f'SELECT latitude FROM bot_users WHERE user_id={user_id}')
-#     latitude = c.fetchone()[0]
-#     c.execute(f'SELECT longitude FROM bot_users WHERE user_id={user_id}')
-#     longitude = c.fetchone()[0]
-#     return latitude, longitude
-
 @ensure_connection
 def count_users(conn):
     c = conn.cursor()
-    c.execute(f'SELECT COUNT(*) FROM bot_users')
+    c.execute('SELECT COUNT(*) FROM bot_users')
     users = c.fetchone()[0]
     return users
-
-
-
-if __name__ == '__main__':
-    init_db(force=False)
