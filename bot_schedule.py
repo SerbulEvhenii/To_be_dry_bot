@@ -3,7 +3,6 @@ from apscheduler.schedulers.background import BlockingScheduler
 import bot_handlers
 import re
 
-
 sched = BlockingScheduler()
 
 
@@ -16,10 +15,8 @@ def start_schedule():
     print('Расписание запущено...')
     sched.start()
 
-alarm = "00:99"
 
-
-def check_valid_time(t):
+def check_valid_time(t: str) -> bool:
     valid = '(\d{2}):(\d{2})'
     if re.match(valid, t): # проверка на колличество введенных цифр между символом :
         find_time = re.findall(valid, t)

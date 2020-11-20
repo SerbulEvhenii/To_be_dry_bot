@@ -3,7 +3,7 @@ from geopy.geocoders import Nominatim
 from db_postgreSQL import set_city_user_db
 
 
-def set_city_geopy(user_id, latit, long):
+def set_city_geopy(user_id: int, latit:float, long:float) -> bool:
     geolocator = Nominatim(user_agent="SEA")
     location = geolocator.reverse(f"{latit}, {long}", language='ru')
     if location:

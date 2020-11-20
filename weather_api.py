@@ -1,11 +1,12 @@
 # в этом файле описана вся логика работы с API погоды
+import os
 import requests
 import json
 import emoji
 import datetime
 import db_postgreSQL as db
 
-API_KEY = 'a4d2b023b22c75b54f2b88fb96430925'
+API_KEY = os.environ['API_WEATHER']
 USER_LATITUDE = 50.479211
 USER_LONGITUDE = 30.434911
 URL_WEATHER = f'https://api.openweathermap.org/data/2.5/onecall?lat={USER_LATITUDE}&lon={USER_LONGITUDE}' \

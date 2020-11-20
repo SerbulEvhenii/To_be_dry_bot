@@ -130,14 +130,11 @@ def set_geoposition(conn, user_id: int, latit: float, long: float):
 
 @ensure_connection
 def get_geoposition(conn, user_id: int):
-    print(user_id, ' - вызвал get_geoposition')
     c = conn.cursor()
     c.execute('SELECT latitude FROM bot_users WHERE user_id=%s;', [user_id])
     latitude = c.fetchall()[0][0]
-    print(latitude)
     c.execute('SELECT longitude FROM bot_users WHERE user_id=%s;', [user_id])
     longitude = c.fetchall()[0][0]
-    print(longitude)
     return latitude, longitude
 
 
@@ -149,22 +146,15 @@ def set_city_user_db(conn, user_id: int, geopy_city):
 
 
 @ensure_connection
-def get_city_user_db(conn, user_id: int):
+def get_city_user_db(conn, user_id: int) -> str:
     c = conn.cursor()
     c.execute('SELECT city FROM bot_users WHERE user_id=%s;', [user_id])
     return c.fetchone()[0]
 
 
 @ensure_connection
-def count_users(conn):
+def count_users(conn) -> int:
     c = conn.cursor()
     c.execute('SELECT COUNT(*) FROM bot_users')
-    users = c.fetchone()[0]
-    return users
+    return c.fetchone()[0]
 
-# DELETE FROM public.bot_users WHERE user_id = 549477286;
-# db.execute("INSERT INTO passengers (name, flight_id) VALUES (:name, :flight_id)",
-#               {"name": name, "flight_id": flight_id})
-#
-# cursor.execute('SELECT * FROM engine_airport WHERE city_code = %(city_code)s',
-#                    {'city_code': 'ALA'})
