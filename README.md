@@ -2,7 +2,7 @@
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/SerbulEvhenii/To_be_dry_bot/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![PyPI pyversions](https://img.shields.io/badge/build-Stable-green.svg)](https://pypi.python.org/pypi/ansicolortags/)
-[![pyversions](https://img.shields.io/badge/version-1.0-blue.svg)](https://pypi.python.org/pypi/ansicolortags/)
+[![pyversions](https://img.shields.io/badge/version-1.0-blue.svg)]
 
 # To Be Dry - Telegram BOT
 **Телеграм бот с оповещением о погоде на целый день в твоем городе**
