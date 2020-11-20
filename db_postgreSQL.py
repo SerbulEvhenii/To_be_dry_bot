@@ -159,3 +159,5 @@ def count_users(conn):
     c.execute('SELECT COUNT(*) FROM bot_users')
     users = c.fetchone()[0]
     return users
+
+# DELETE FROM public.bot_users WHERE user_id = 549477286;
