@@ -1,6 +1,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/SerbulEvhenii/To_be_dry_bot/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/SerbulEvhenii/To_be_dry_bot/?branch=master)
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/SerbulEvhenii/To_be_dry_bot/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
-[![Build Status](https://scrutinizer-ci.com/g/SerbulEvhenii/To_be_dry_bot/badges/build.png?b=master)](https://scrutinizer-ci.com/g/SerbulEvhenii/To_be_dry_bot/build-status/master)
+[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+
 # To Be Dry - Telegram BOT
 **Телеграм бот с оповещением о погоде на целый день в твоем городе**
 
