@@ -50,7 +50,7 @@ def webhook():
 @bot.message_handler(commands=['start'])
 # Выполняется, когда пользователь вызывает /start
 def send_welcome(message):
-    if db.check_in_db_user(column='user_id', data_check=message.chat.id):
+    if db.check_in_db_user(data_check=message.chat.id):
         bot.send_message(message.chat.id, f'Снова привет, {message.chat.first_name} 🤚🏼',
                          reply_markup=markups.markup_main)
     else:
@@ -222,13 +222,13 @@ def handle_text(message):
         start_menu_settings(message)
     elif 'подписаться' in text:
         # проверить если пользователь в базе данных, если нет, то добавить
-        if db.check_in_db_user(column='user_id', data_check=message.chat.id):
+        if db.check_in_db_user(data_check=message.chat.id):
             subscribe(message)
         else:
             db.add_user_in_db(user_name=message.chat.username, user_id=message.chat.id)
             subscribe(message)
     elif 'отписаться' in text:
-        if db.check_in_db_user(column='user_id', data_check=message.chat.id):
+        if db.check_in_db_user(data_check=message.chat.id):
             unsubscribe(message)
         else:
             bot.send_message(message.chat.id, 'Вы еще не подписывались на уведомления!')
