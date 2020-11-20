@@ -187,7 +187,7 @@ def location(message):
                                               reply_markup=markups.markup_main)
         else:
             bot.send_message(message.chat.id,
-                             emoji.emojize(":disappointed: Извините, сервис определения местоположения временно "
+                             emoji.emojize(":worried face: :crying face: :loudly crying face: Извините, сервис определения местоположения временно "
                                            "недоступен, попробуйте еще раз немного позже."),
                              reply_markup=markups.markup_main)
 
