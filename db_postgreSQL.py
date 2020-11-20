@@ -2,6 +2,8 @@
 import psycopg2
 import os
 
+from psycopg2.sql import SQL, Identifier
+
 DATABASE_URL = os.environ['DATABASE_URL']
 
 
@@ -60,7 +62,8 @@ def add_user_in_db(conn, user_id: int, user_name: str):
 def check_in_db(conn, column, data_check):
     c = conn.cursor()
     # c.execute(f'SELECT {column} FROM bot_users WHERE {column}={data_check}')
-    c.execute('SELECT %s FROM bot_users WHERE %s = %s', (column, column, data_check))
+    # c.execute('SELECT %s FROM bot_users WHERE %s = %s', (column, column, data_check))
+    c.execute(SQL('SELECT {} FROM bot_users WHERE %s = %s').format(Identifier(column)), (column, data_check))
     return c.fetchone()
     # if c.fetchone():
     #     return True
@@ -161,3 +164,8 @@ def count_users(conn):
     return users
 
 # DELETE FROM public.bot_users WHERE user_id = 549477286;
+# db.execute("INSERT INTO passengers (name, flight_id) VALUES (:name, :flight_id)",
+#               {"name": name, "flight_id": flight_id})
+#
+# cursor.execute('SELECT * FROM engine_airport WHERE city_code = %(city_code)s',
+#                    {'city_code': 'ALA'})
