@@ -1,4 +1,6 @@
 # файл описывает всю логику работы с БД
+from typing import List
+
 import psycopg2
 import os
 
@@ -59,16 +61,10 @@ def add_user_in_db(conn, user_id: int, user_name: str):
 
 
 @ensure_connection
-def check_in_db(conn, column, data_check):
+def check_in_db_user(conn, data_check) -> bool:
     c = conn.cursor()
-    # c.execute(f'SELECT {column} FROM bot_users WHERE {column}={data_check}')
-    # c.execute('SELECT %s FROM bot_users WHERE %s = %s', (column, column, data_check))
-    c.execute(SQL('SELECT {} FROM bot_users WHERE %s = %s').format(Identifier(column)), (column, data_check))
+    c.execute('SELECT user_id FROM bot_users WHERE user_id= %s', [data_check])
     return c.fetchone()
-    # if c.fetchone():
-    #     return True
-    # else:
-    #     return False
 
 
 @ensure_connection
@@ -80,7 +76,7 @@ def subscribe_db(conn, user_id: int):
 
 
 @ensure_connection
-def check_subscribe_db(conn, user_id: int):
+def check_subscribe_db(conn, user_id: int) -> bool:
     c = conn.cursor()
     # c.execute(f'SELECT subscribe FROM bot_users WHERE user_id={user_id}')
     c.execute('SELECT subscribe FROM bot_users WHERE user_id= %s', [user_id])
@@ -106,17 +102,20 @@ def set_time_notify(conn, user_id: int, time: str):
 
 
 @ensure_connection
-def list_id_users_in_db(conn):
+def list_id_users_in_db(conn) -> List:
     c = conn.cursor()
     c.execute('SELECT * FROM bot_users')
     return c.fetchall()
 
 
 @ensure_connection
-def get_time_notify_user_db(conn, user_id: int):
+def get_time_notify_user_db(conn, user_id: int) -> str:
     c = conn.cursor()
     c.execute('SELECT time_notify FROM bot_users WHERE user_id=%s;', [user_id])
-    return c.fetchone()[0]
+    try:
+        return c.fetchone()[0]
+    except IndexError:
+        return ''
 
 
 @ensure_connection
