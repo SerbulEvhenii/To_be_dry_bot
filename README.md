@@ -6,10 +6,11 @@
 
 # To Be Dry - Telegram BOT
 **Телеграм бот с оповещением о погоде на целый день в твоем городе**
+**[Bot link](https://t.me/toBeDryBot?start)**
+**[Bot website](https://bot-to-be-dry.herokuapp.com/)**
 
 ![Image Logo](https://github.com/SerbulEvhenii/To_be_dry_bot/blob/master/tobedry_logo.jpg)
 
-**[Bot link](https://t.me/toBeDryBot?start)** **[Bot website](https://bot-to-be-dry.herokuapp.com/)**
 
 
 ## Tech Stack:
