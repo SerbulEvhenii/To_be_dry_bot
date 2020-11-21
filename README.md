@@ -18,9 +18,9 @@
 - API погода - [OpenWeatherMap](https://openweathermap.org/api)
 - API Telegram - [pyTelegramBotAPI](https://github.com/eternnoir/pyTelegramBotAPI)
 - Смайлы - [Emoji](https://github.com/carpedm20/emoji/)
-- WebHook
-- Web-сервер - [Flask](https://flask.palletsprojects.com/en/1.1.x/) 
+- WebHook + [Flask](https://flask.palletsprojects.com/)
 - Уведомления - [apscheduler](https://github.com/agronholm/apscheduler/tree/028506a816c74ee05951717c0e45d2e6ad32773e)
 - Определение страны и города - [GeoPy](https://github.com/geopy/geopy/blob/5362fa1a533cb003b44d4f5c51a81f2afc467ea4/docs/index.rst)
+- Развернут на [Heroku](https://www.heroku.com/)
 
 ![General](https://github.com/SerbulEvhenii/To_be_dry_bot/blob/master/Info.png)
