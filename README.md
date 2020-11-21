@@ -5,11 +5,10 @@
 ![pyversions](https://img.shields.io/badge/version-1.0-blue.svg)
 
 # To Be Dry - Telegram BOT
-**Телеграм бот с оповещением о погоде на целый день в твоем городе**
+**Telegram bot with weather alert for the whole day in your city**
 
-**[Bot link](https://t.me/toBeDryBot?start)**
-
-**[Bot website](https://bot-to-be-dry.herokuapp.com/)**
+- **[Bot link](https://t.me/toBeDryBot?start)**
+- **[Bot website](https://bot-to-be-dry.herokuapp.com/)**
 
 ![Image Logo](https://github.com/SerbulEvhenii/To_be_dry_bot/blob/master/tobedry_logo.jpg)
 
