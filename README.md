@@ -4,7 +4,7 @@
 [![PyPI pyversions](https://img.shields.io/badge/build-Stable-green.svg)](https://pypi.python.org/pypi/ansicolortags/)
 ![pyversions](https://img.shields.io/badge/version-1.0-blue.svg)
 
-# To Be Dry - Telegram BOT
+# 'To Be Dry' - Telegram BOT
 **Telegram bot with weather alert for the whole day in your city**
 
 - **[Bot link](https://t.me/toBeDryBot?start)**
